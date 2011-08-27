@@ -9,6 +9,8 @@ var app = module.exports = express.createServer();
 
 // Configuration
 
+server_port = 80;
+
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
@@ -20,12 +22,11 @@ app.configure(function(){
 
 app.configure('development', function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-  var server_port = 3000;
+  server_port = 3000;
 });
 
 app.configure('production', function(){
   app.use(express.errorHandler()); 
-  var server_port = 80;
 });
 
 // Routes
