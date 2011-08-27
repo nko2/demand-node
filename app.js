@@ -52,7 +52,7 @@ var server_port = 80,
 app.configure('development', function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
   server_port = 3002;
-  server_host = 'http://dev.crunchtune.com'
+  server_host = 'dev.crunchtune.com'
   api_key = 'k7asxsy9cqsph3j9zxzmq9z8';
   api_shared = 'fGerbhySxa';
 });
