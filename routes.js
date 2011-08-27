@@ -31,8 +31,16 @@ module.exports = function(app, rdio){
   });
 
   app.get('/', function(req, res){
-    res.render('index', {
-      title: 'Knockout Radio'
-    });
+
+    console.log(req.session)
+    if(req.session.oauth_access_token) {
+      res.render('main', {
+        title: 'Knockout Radio'
+      });
+    } else {
+      res.render('index', {
+        title: 'Knockout Radio'
+      });
+    }
   });
 };

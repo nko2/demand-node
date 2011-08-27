@@ -8,5 +8,6 @@
     , "rdio": ">= 1.x.x"
     , "oauth": ">= 0.9.x"
     , "socket.io": ">= x.x.x"
+    , "connect-redis": ">= x.x.x"
   }
 }
