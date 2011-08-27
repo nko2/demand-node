@@ -4,8 +4,11 @@ var http = require('http'),
 * Module dependencies.
 */
 
-var express = require('express');
-var app = module.exports = express.createServer();
+var express = require('express'),
+app = module.exports = express.createServer();
+
+var OAuth = require('oauth').OAuth,
+  querystring = require('querystring');
 
 // Configuration
 
@@ -29,13 +32,16 @@ app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
 
-// Routes
 
-app.get('/', function(req, res){
-  res.render('index', {
-    title: 'Express'
-  });
+//setup rdio
+var rdio = require('rdio')({
+  rdio_api_key: ct.config.rdio_api_key,
+  rdio_api_shared: ct.config.rdio_api_shared,
+  callback_url: ct.config.host+":"+ct.config.port+"/oauth/callback"
 });
+
+//routes
+require('routes')(app, rdio);
 
 app.listen(server_port);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
