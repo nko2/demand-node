@@ -1,9 +1,10 @@
 {
-    "name": "application-name"
+    "name": "knockoutCrunchTune"
   , "version": "0.0.1"
   , "private": true
   , "dependencies": {
       "express": "2.4.6"
     , "jade": ">= 0.0.1"
+    , "rdio": ">= 1.x.x"
   }
 }
