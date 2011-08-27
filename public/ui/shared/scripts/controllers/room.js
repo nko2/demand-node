@@ -1,4 +1,7 @@
 var RoomController = Fidel.ViewController.extend({
+  events: {
+    playTrackAction: 'click ul li' //delegateActions won't work here - bug in fidel
+  },
   init: function() {
     var self = this;
     this.isDJ = false;
@@ -22,17 +25,10 @@ var RoomController = Fidel.ViewController.extend({
   onPlayerReady: function() {
     this._playerReady = true;
   },
-  playButton: function() { //only if dj
-    this.isDJ = true; //TODO: set somewhere else
-    if (this._playerReady && this.isDJ) {
-      this.player.play(trackId);
-      now.playTrack(this.room, trackId);
-    }
-  },
-  djPlayedTrack: function(trackId) {
+  djPlayedTrack: function(trackKey) {
     if (!this.isDJ) {
-      console.log("dj played track: "+trackId);
-      this.player.play(trackId);
+      console.log("dj played track: "+trackKey);
+      this.player.play(trackKey);
     }
   },
   setDJ: function() {
@@ -41,9 +37,22 @@ var RoomController = Fidel.ViewController.extend({
     this.showDJ();
   },
   showDJ: function() {
-    var tmp = $("#tmpDJ").html();
-    var html = str.template(tmp, {});
-    this.find("#dj").html(html);
-    this.delegateActions();
+    var self = this;
+    services.rdio.getTopCharts(function(data) { //TODO: tmp just to get something working
+      console.log(data);
+      var tmp = $("#tmpDJ").html();
+      var html = str.template(tmp, { tracks: data});
+      self.find("#dj").html(html);
+      self.delegateActions();
+    });
+  },
+  playTrackAction: function(e) {
+    var trackKey = e.target.getAttribute('data-trackkey');
+    console.log(trackKey);
+    this.playTrack(trackKey);
+  },
+  playTrack: function(trackKey) {
+    this.player.play(trackKey);
+    now.playTrack(this.room, trackKey);
   }
 });

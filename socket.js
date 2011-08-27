@@ -18,7 +18,7 @@ module.exports = function(app, rdio, host) {
           //console.log(self.user);
           //self.user.now.setDJ();
           room.now.setDJ(); //TODO: need to be able to pass to specific user
-        }, 1000);
+        }, 2000);
       } else {
         if (room.now.currentTrack) {
           console.log("current track for room: "+room.now.currentTrack);

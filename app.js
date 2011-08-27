@@ -66,6 +66,7 @@ var rdio = require('rdio')({
 
 //routes
 require('./routes')(app, rdio, server_host);
+require('./api')(app, rdio);
 require('./socket')(app, rdio, server_host);
 app.listen(server_port);
 
