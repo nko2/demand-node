@@ -15,9 +15,15 @@ var querystring = require('querystring'),
 var server_port = 80,
     server_host = 'http://knockout.crunchtune.com/';
 
+var ui = function(req, res, next) {
+  res.local("scripts", []);
+  res.local("stylesheets", []);
+  next();
+};
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
+  app.use(ui);
   app.use(express.bodyParser());
   app.use(express.methodOverride());
 
@@ -30,6 +36,7 @@ app.configure(function(){
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
 });
+
 app.dynamicHelpers({
   base: function(){
     return '/' == app.route ? '' : app.route;

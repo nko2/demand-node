@@ -16,6 +16,9 @@ html
     link(rel='stylesheet', href='/ui/shared/stylesheets/layout.css')
     link(rel='stylesheet', href='/ui/shared/stylesheets/common.css')
     link(rel='stylesheet', href='/ui/shared/stylesheets/typography.css')    
+    - stylesheets.forEach(function(s) {
+      link(rel="stylesheet", href=s)
+    - })
 
   body
     div#container
@@ -33,13 +36,14 @@ html
         li.deep
         li.shallow
       div#rdioPlayer
+    div#fb-root
     script(type="text/javascript", src="/ui/shared/scripts/external/ender.min.js")
     script(type="text/javascript", src="/ui/shared/scripts/plugins/fidel.js")
     script(type="text/javascript", src="/ui/shared/scripts/plugins/plax.js")
     script(type="text/javascript", src="/ui/shared/scripts/plax.js")
-    script(type="text/javascript", src="/ui/shared/scripts/app.js")
-    script(type="text/javascript", src="/ui/shared/scripts/site.js")
-    script(src='https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js')
+    script(type="text/javascript", src="/ui/shared/scripts/global.js")
 
     script(src="http://connect.facebook.net/en_US/all.js#appId=142525322505020&amp;xfbml=1")
-    div#fb-root
+    - scripts.forEach(function(s) {
+      script(src=s)
+    - })
