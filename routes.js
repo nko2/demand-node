@@ -31,6 +31,8 @@ module.exports = function(app, rdio){
   });
 
   app.get('/', function(req, res){
-    
+    res.render('index', {
+      title: 'Knockout Radio'
+    });
   });
 };
