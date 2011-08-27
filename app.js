@@ -35,9 +35,9 @@ app.configure('production', function(){
 
 //setup rdio
 var rdio = require('rdio')({
-  rdio_api_key: ct.config.rdio_api_key,
-  rdio_api_shared: ct.config.rdio_api_shared,
-  callback_url: ct.config.host+":"+ct.config.port+"/oauth/callback"
+  rdio_api_key: nb7uwguu2k2ra3dy5s2qpjkr,
+  rdio_api_shared: ns3NR8ZGVG,
+  callback_url: "http://knockout.crunchtune.com/oauth/callback"
 });
 
 //routes
