@@ -9,5 +9,6 @@
     , "oauth": ">= 0.9.x"
     , "socket.io": ">= x.x.x"
     , "connect-redis": ">= x.x.x"
+    , "mongodb": ">= x.x.x"
   }
 }

@@ -49,6 +49,8 @@ module.exports = function(app, rdio){
 
   app.get('/', function(req, res){
 
+    var services = require('./services.js')();
+
     if(req.session.oauth_access_token || req.session.isGuest) {
       res.render('main', {
         title: 'Knockout Radio'
