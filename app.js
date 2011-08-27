@@ -11,13 +11,6 @@ var express = require('express'),
 var querystring = require('querystring'),
     RedisStore = require('connect-redis')(express);
 
-// Configuration
-
-var server_port = 80,
-    server_host = 'knockout.crunchtune.com',
-    rdio_api_key = 'nb7uwguu2k2ra3dy5s2qpjkr',
-    rdio_api_shared = 'ns3NR8ZGVG';
-
 var ui = function(req, res, next) {
   res.local("scripts", []);
   res.local("stylesheets", []);
@@ -49,12 +42,19 @@ app.dynamicHelpers({
   }
 });
 
+
+// Configuration
+var server_port = 80,
+    server_host = 'knockout.crunchtune.com',
+    api_key = 'nb7uwguu2k2ra3dy5s2qpjkr',
+    api_shared = 'ns3NR8ZGVG';
+
 app.configure('development', function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-  rdio_api_key = 'k7asxsy9cqsph3j9zxzmq9z8';
-  rdio_api_shared = 'fGerbhySxa';
-  server_host = 'dev.crunchtune.com';
   server_port = 3002;
+  server_host = 'http://dev.crunchtune.com'
+  api_key = 'k7asxsy9cqsph3j9zxzmq9z8';
+  api_shared = 'fGerbhySxa';
 });
 
 app.configure('production', function(){
@@ -64,8 +64,8 @@ app.configure('production', function(){
 
 //setup rdio
 var rdio = require('rdio')({
-  rdio_api_key: rdio_api_key,
-  rdio_api_shared: rdio_api_shared, 
+  rdio_api_key: api_key, //nb7uwguu2k2ra3dy5s2qpjkr
+  rdio_api_shared: api_shared,   // ns3NR8ZGVG
   callback_url: "http://"+server_host+":"+server_port+"/oauth/callback"
 });
 
