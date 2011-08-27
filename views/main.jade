@@ -1,6 +1,7 @@
-- scripts.push("/ui/shared/scripts/app.js")
-- scripts.push("/ui/shared/scripts/pages/room.js")
 - scripts.push("https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js");
+- scripts.push("/ui/shared/scripts/controllers/player.js")
+- scripts.push("/ui/shared/scripts/controllers/room.js")
+- scripts.push("/ui/shared/scripts/pages/room.js")
 
 - if(isGuest)
   p You are logged in as a guest. You should really, really 
@@ -11,3 +12,9 @@
   p Welcome to knockout radio. You are fucking logged in.
 
   a(href="/logout") Logout this shit
+
+div#rdioPlayer
+div(data-element='playerNode')
+
+script
+  window.playbackToken = "#{playbackToken}";

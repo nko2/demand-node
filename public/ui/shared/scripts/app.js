@@ -1,4 +1,4 @@
-var AppController = Fidel.extend({
+var AppController = Fidel.ViewController.extend({
 	init: function() { 
 		var self = this;
 	}

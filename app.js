@@ -13,7 +13,7 @@ var querystring = require('querystring'),
 // Configuration
 
 var server_port = 80,
-    server_host = 'http://knockout.crunchtune.com/';
+    server_host = 'knockout.crunchtune.com';
 
 var ui = function(req, res, next) {
   res.local("scripts", []);
@@ -49,7 +49,6 @@ app.dynamicHelpers({
 app.configure('development', function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
   server_port = 3002;
-  server_host = 'http://knockout.crunchtune.com:'+server_port+'/';
 });
 
 app.configure('production', function(){
@@ -61,11 +60,11 @@ app.configure('production', function(){
 var rdio = require('rdio')({
   rdio_api_key: 'nb7uwguu2k2ra3dy5s2qpjkr',
   rdio_api_shared: 'ns3NR8ZGVG',
-  callback_url: server_host+"oauth/callback"
+  callback_url: "http://"+server_host+":"+server_port+"/oauth/callback"
 });
 
 //routes
-require('./routes.js')(app, rdio);
+require('./routes.js')(app, rdio, server_host);
 
 app.listen(server_port);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

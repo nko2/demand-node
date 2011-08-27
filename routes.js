@@ -1,6 +1,6 @@
 var url = require('url');
 
-module.exports = function(app, rdio){
+module.exports = function(app, rdio, host){
 
   app.get ('/oauth/login', function(req, res, params) {
     if(!req.session.oauth_access_token) {
@@ -52,10 +52,18 @@ module.exports = function(app, rdio){
     var services = require('./services.js')();
 
     if(req.session.oauth_access_token || req.session.isGuest) {
-      res.render('main', {
-        title: 'Knockout Radio',
-        isGuest: req.session.isGuest
-      });
+      rdio.getPlaybackToken(
+        req.session.oauth_access_token,
+        req.session.oauth_access_token_secret,
+        host,
+        function(err, data, response) {
+          console.log(data);
+          res.render('main', {
+            playbackToken: JSON.parse(data).result,
+            title: 'Knockout Radio',
+            isGuest: req.session.isGuest
+          });
+        });
     } else {
       res.render('index', {
         title: 'Knockout Radio'
