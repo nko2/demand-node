@@ -9,9 +9,10 @@ module.exports = function(app, rdio){
           // store the tokens in the session
           req.session.oauth_token = oauth_token;
           req.session.oauth_token_secret = oauth_token_secret;
+          req.session.isGuest = false;
 
           // redirect the user to authorize the token
-          res.redirect(ct.config.rdio_oauth_auth+oauth_token);
+          res.redirect('https://www.rdio.com/oauth/authorize?oauth_token='+oauth_token);
         }
       });
     } else {
@@ -30,10 +31,14 @@ module.exports = function(app, rdio){
     )
   });
 
+  app.get('/guest', function(req, res) {
+    req.session.isGuest = true;
+    res.redirect("/");
+  });
+
   app.get('/', function(req, res){
 
-    console.log(req.session)
-    if(req.session.oauth_access_token) {
+    if(req.session.oauth_access_token || req.session.isGuest) {
       res.render('main', {
         title: 'Knockout Radio'
       });
