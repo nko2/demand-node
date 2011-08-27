@@ -1,5 +1,6 @@
 - scripts.push("https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js");
 - scripts.push("nowjs/now.js")
+- scripts.push("/ui/shared/scripts/external/str.js")
 - scripts.push("/ui/shared/scripts/controllers/player.js")
 - scripts.push("/ui/shared/scripts/controllers/room.js")
 - scripts.push("/ui/shared/scripts/pages/room.js")
@@ -15,9 +16,10 @@
   a(href="/logout") Logout this shit
 
 div#rdioPlayer
-div(data-element='playerNode')
-  //should only show for dj
-  button(data-action='playButton') Play
+div#dj
+
+script#tmpDJ(type="text/template")
+  include includes/dj
 
 script
   window.playbackToken = "#{playbackToken}";

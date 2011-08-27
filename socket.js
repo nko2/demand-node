@@ -7,18 +7,26 @@ module.exports = function(app, rdio, host) {
     rooms.push(name);
   };
   everyone.now.joinRoom = function(roomName) {
+    var self = this;
     var room = nowjs.getGroup(roomName);
     console.log("user joined room: "+roomName);
     room.addUser(this.user.clientId);
-    console.log("current track for room: "+room.now.currentTrack);
-    if (room.now.currentTrack) {
-      console.log("passed track");
-      setTimeout(function() { //TODO: another nasty hack
-        room.now.djPlayedTrack(room.now.currentTrack);
-      }, 2000);
-    }
-    room.getUsers(function(users) {
-      console.log(users);
+    room.count(function(c) {
+      console.log("Users in room: "+c);
+      if (c === 1) { // first in room
+        setTimeout(function() { //TODO: fixme
+          //console.log(self.user);
+          //self.user.now.setDJ();
+          room.now.setDJ(); //TODO: need to be able to pass to specific user
+        }, 1000);
+      } else {
+        if (room.now.currentTrack) {
+          console.log("current track for room: "+room.now.currentTrack);
+          setTimeout(function() { //TODO: another nasty hack
+            room.now.djPlayedTrack(room.now.currentTrack);
+          }, 2000);
+        }
+      }
     });
   };
   everyone.now.playTrack = function(roomName, trackId) {

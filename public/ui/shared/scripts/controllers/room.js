@@ -1,6 +1,7 @@
 var RoomController = Fidel.ViewController.extend({
   init: function() {
     var self = this;
+    this.isDJ = false;
     this.room = window.room; //TODO
     this._playerReady = false;
     this.player = new Player(this.playbackToken);
@@ -15,6 +16,7 @@ var RoomController = Fidel.ViewController.extend({
       console.log("joined room: "+window.room);
       now.joinRoom(window.room);
       now.djPlayedTrack = self.proxy(self.djPlayedTrack); 
+      now.setDJ = self.proxy(self.setDJ);
     }, 2000);
   },
   onPlayerReady: function() {
@@ -32,5 +34,16 @@ var RoomController = Fidel.ViewController.extend({
       console.log("dj played track: "+trackId);
       this.player.play(trackId);
     }
+  },
+  setDJ: function() {
+    console.log("set as DJ");
+    this.isDJ = true;
+    this.showDJ();
+  },
+  showDJ: function() {
+    var tmp = $("#tmpDJ").html();
+    var html = str.template(tmp, {});
+    this.find("#dj").html(html);
+    this.delegateActions();
   }
 });
