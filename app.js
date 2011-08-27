@@ -59,8 +59,8 @@ app.configure('production', function(){
 
 //setup rdio
 var rdio = require('rdio')({
-  rdio_api_key: 'nb7uwguu2k2ra3dy5s2qpjkr',
-  rdio_api_shared: 'ns3NR8ZGVG',
+  rdio_api_key: 'k7asxsy9cqsph3j9zxzmq9z8', //nb7uwguu2k2ra3dy5s2qpjkr
+  rdio_api_shared: 'fGerbhySxa',   // ns3NR8ZGVG
   callback_url: "http://"+server_host+":"+server_port+"/oauth/callback"
 });
 
