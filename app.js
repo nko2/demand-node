@@ -42,7 +42,7 @@ app.dynamicHelpers({
 app.configure('development', function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
   server_port = 3001;
-  server_host = 'localhost:'+server_port+'/';
+  server_host = 'http://knockout.crunchtune.com:'+server_port+'/';
 });
 
 app.configure('production', function(){

@@ -1,3 +1,5 @@
+var url = require('url');
+
 module.exports = function(app, rdio){
 
   app.get ('/oauth/login', function(req, res, params) {
