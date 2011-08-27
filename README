@@ -1,0 +1,34 @@
+# Meowdio
+
+# Purpose: To let turntable.fm know that they suck donkey balls.
+# How: We are implementing a point system/competition for only 1 DJ at a time per room. 4 DJs are for gay clubs and gastropubs
+
+# Features: 1 DJ per room. First served basis to the DJ booth. Will allow a 'gamble' system to take over the DJ booth. 
+#						DJ voting system will work the same as turntable to allow next song or boot the DJ. All points are rewarded
+#						in a 4square 'like' enviroment and badges. Points will also reward random score mulitipliers and possibly to
+#						take over the DJ booth with no risk.
+
+
+# FLOW: 
+
+# [1] => LOGIN : Check if user is logged in. If so, proceed to [2]. If not, proceed to [1a].
+#	[1a] => LOGIN PROMPT : If session token response is valid, proceed to [2]. If not, proceed to [1b].
+#	[1b] => NEW USER REGISTRATION : Upon session token response, proceed to [2]. If not, guest token responded proceed to [1c.
+#	[1c] => GUEST TOKEN : Songs playback is capped at 30 seconds. Until next play request, serve UI to restart [1].
+
+#	[2] => VALID AUTH RESPONSE : Initiate token count. If user token count is over 500, proceed to [3].
+#	[2a] => REPLENISH USER TOKENS : Initiate token count history. If user token refill < 3 per last 24 hours, refill. If
+#					user token count refill > 3, notify user of count time lapse until refill available. Proceed to [3].
+
+#	[3] => MOVE USER TO SOCKET INSTANCE "GLOBAL ROOM" : Store user id token, push to active users array. Update UI with
+#				 user name & avatar. Proceed to [4].
+
+#	[4] => INITIATE PLAYLIST : Pull current playlist for room. Display playlist and current song UI. Ping current DJ and current song 
+#				 position. Play newly connected user to current timestamp.
+
+#	[5] => RESERVED FOR COLLABORATION PLAYLIST : MULITPLE USERS
+
+#	[6] => POPULATE PURCHASE/RDIO UPSELL : Take current song and previous 15 songs in playlist and include link for purchase at
+#				 song and playlist level. 
+
+#	[7]	=> Push previous song in current room to APP[RDIO USER] => PLAYLIST[ROOM NAME]
