@@ -1,6 +1,7 @@
-var PlayerController = Fidel.ViewController.extend({
-  init: function() {
+var Player = Fidel.Class.extend({
+  init: function(token) {
     var self = this;
+    this.playbackToken = token;
     this.playerId = "rdioPlayer";
     this._initFPlayer();
   },
