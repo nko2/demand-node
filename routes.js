@@ -52,18 +52,39 @@ module.exports = function(app, rdio, host){
     var services = require('./services.js')();
 
     if(req.session.oauth_access_token || req.session.isGuest) {
-      rdio.getPlaybackToken(
+      rdio.api(
         req.session.oauth_access_token,
         req.session.oauth_access_token_secret,
-        host,
+        {
+          method: 'currentUser'
+        },
         function(err, data, response) {
-          console.log(data);
-          res.render('main', {
-            playbackToken: JSON.parse(data).result,
-            title: 'Knockout Radio',
-            isGuest: req.session.isGuest
-          });
-        });
+          var user = JSON.parse(data).result;
+
+          console.log(user);
+
+          rdio.getPlaybackToken(
+            req.session.oauth_access_token,
+            req.session.oauth_access_token_secret,
+            host,
+            function(err, data, response) {
+              console.log(data);
+
+              var points = services.getPoints(user.key);
+
+              console.log(points);
+
+              res.render('main', {
+                playbackToken: JSON.parse(data).result,
+                title: 'Knockout Radio',
+                isGuest: req.session.isGuest,
+                user: user,
+                points: points
+              });
+            }
+          );
+        }
+      );
     } else {
       res.render('index', {
         title: 'Knockout Radio'
