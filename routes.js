@@ -53,7 +53,8 @@ module.exports = function(app, rdio){
 
     if(req.session.oauth_access_token || req.session.isGuest) {
       res.render('main', {
-        title: 'Knockout Radio'
+        title: 'Knockout Radio',
+        isGuest: req.session.isGuest
       });
     } else {
       res.render('index', {

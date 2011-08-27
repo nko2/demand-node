@@ -1,3 +1,9 @@
-p Welcome to knockout radio. You are fucking logged in.
+- if(isGuest)
+  p You are logged in as a guest. You should really, really 
+    a(href="/oauth/login") Login
+    |  to fully experience this shit.
 
-a(href="/logout") Logout this shit
+- else
+  p Welcome to knockout radio. You are fucking logged in.
+
+  a(href="/logout") Logout this shit
