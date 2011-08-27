@@ -1,0 +1,30 @@
+/* TYPOGRAPHY */
+body { font-family: Helvetica, Arial; color: #000; }
+a { color: #bfbdad; text-decoration: none; cursor: pointer; }
+a img { border: none; }
+a:hover { text-decoration: none; }
+input { font-size: 14px; color: #6e6b6b; outline: none; }
+
+@font-face {
+    font-family: 'ChunkFiveRegular';
+    src: url('../fonts/Chunkfive-webfont.eot');
+    src: url('../fonts/Chunkfive-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Chunkfive-webfont.woff') format('woff'),
+         url('../fonts/Chunkfive-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+.Chunk { font-family: ChunkFiveRegular; }
+/* =Global: Headings */
+.Heading1 { font-size: 80px; }
+.Heading2 { font-size: 36px; }
+.Heading3 { font-size: 30px; }
+.Heading4 { font-size: 24px; }
+.Heading5 { font-size: 18px; }
+.Heading6 { font-size: 14px; }
+
+.Note { font-size: 11px; }
+p { font-size: 12px; }
+.error { display: inline; width: 296px; float: left; font-weight: bold; color: #c81a1a !important; text-align: center; }

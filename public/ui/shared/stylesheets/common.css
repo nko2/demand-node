@@ -1,0 +1,15 @@
+/* Reset */
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,figure,pre,a,abbr,button,address,cite,code,del,dfn,img,ins,kbd,q,samp,strike,tt,var,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,header,nav,article,section,aside,footer { border: 0; font-family: inherit; font-size: 100%; font-style: inherit; font-weight: inherit; margin: 0; outline: 0; padding: 0; vertical-align: baseline; }
+
+/* HTML5 */
+header,nav,article,section,figure,aside,footer { display: block; }
+
+/* COMMON */
+.FLC { clear: both; }
+.FLC:after { clear: both; content: "."; display: block; height: 0; visibility: hidden; }
+
+.Inline { float: left; width: auto; }
+
+.Module { float: left; width: 100%; margin-bottom: 10px; }
+
+.UTL { list-style-type: none; margin: 0; padding: 0; }

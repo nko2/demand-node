@@ -1,0 +1,26 @@
+/* LAYOUT */
+html { background: url('../images/bg.jpg') repeat 0 0; }
+body { }
+
+#container { width: 728px; height: 100%; margin: 0 auto 20px; overflow: hidden; }
+
+#header { width: 100%; height: 75px; }
+
+#meta { position: relative; float: left; width: 119px; height: 142px; margin-right: 232px; }
+
+.primary { margin-right: 22px; padding-top: 26px; }
+	.primary dl { width: 100%; }
+		.primary dl dt, .primary dl dd { width: auto; height: 52px; margin-right: 20px; padding-left: 20px; line-height: 52px; }
+			.primary dl dt { display: inline; float: left; padding-left: 0; }
+
+.social { float: left; margin-right: 2px; padding-top: 21px; }
+	.social ul { width: 50px; }	
+		.social ul li { display: inline; float: left; width: auto; height: 100%; margin-right: 26px; }
+
+#content { position: relative; z-index: 3; background: #ccc; width: 688px; height: 430px; margin-top: 62px; padding: 20px; }
+
+#container label.error { display: none; }
+
+#crowd { position: fixed; bottom: -65px; width: 110%; height: 312px; margin-top: -310px; }
+    #crowd .deep { position: absolute; z-index: 2; left: -40px; background: url('../images/crowd.png') no-repeat 0 bottom; width: inherit; height: 312px; }
+    #crowd .shallow { position: absolute; z-index: 1; left: -100px; bottom: 0; background: url('../images/crowd.png') no-repeat 0 top; width: inherit; height: 312px; }
