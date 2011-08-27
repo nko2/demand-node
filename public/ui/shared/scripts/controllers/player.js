@@ -50,6 +50,7 @@ var Player = Fidel.Class.extend({
   },
   play: function(key) {
     console.log("play", key);
+    //this.player.rdio_setVolume(0); //TODO: remove later
     this.player.rdio_play(key);
   }
 });
