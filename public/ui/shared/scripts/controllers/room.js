@@ -28,7 +28,7 @@ var RoomController = Fidel.ViewController.extend({
   djPlayedTrack: function(trackKey) {
     if (!this.isDJ) {
       console.log("dj played track", trackKey);
-      this.player.play(trackKey);
+      this.playTrack(trackKey);
     }
   },
   setDJ: function() {
@@ -53,8 +53,9 @@ var RoomController = Fidel.ViewController.extend({
   },
   playTrack: function(trackKey) {
     var self = this;
+    if (this.isDJ)
+      now.playTrack(this.room, trackKey);
     this.player.play(trackKey);
-    now.playTrack(this.room, trackKey);
     services.rdio.getTrackInfo(trackKey, function(data) {
       console.log(data);
       var tmp = $("#tmpNowPlaying").html();
