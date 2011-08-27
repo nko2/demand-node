@@ -41,7 +41,7 @@ var rdio = require('rdio')({
 });
 
 //routes
-require('routes.js')(app, rdio);
+require('./routes.js')(app, rdio);
 
 app.listen(server_port);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
