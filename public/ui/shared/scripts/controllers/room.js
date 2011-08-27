@@ -27,7 +27,7 @@ var RoomController = Fidel.ViewController.extend({
   },
   djPlayedTrack: function(trackKey) {
     if (!this.isDJ) {
-      console.log("dj played track: "+trackKey);
+      console.log("dj played track", trackKey);
       this.player.play(trackKey);
     }
   },
@@ -41,7 +41,7 @@ var RoomController = Fidel.ViewController.extend({
     services.rdio.getTopCharts(function(data) { //TODO: tmp just to get something working
       console.log(data);
       var tmp = $("#tmpDJ").html();
-      var html = str.template(tmp, { tracks: data});
+      var html = str.template(tmp, { tracks: data });
       self.find("#dj").html(html);
       self.delegateActions();
     });
@@ -52,7 +52,14 @@ var RoomController = Fidel.ViewController.extend({
     this.playTrack(trackKey);
   },
   playTrack: function(trackKey) {
+    var self = this;
     this.player.play(trackKey);
     now.playTrack(this.room, trackKey);
+    services.rdio.getTrackInfo(trackKey, function(data) {
+      console.log(data);
+      var tmp = $("#tmpNowPlaying").html();
+      var html = str.template(tmp, { track: data });
+      self.find("#nowPlaying").html(html);
+    });
   }
 });

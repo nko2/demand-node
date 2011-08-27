@@ -16,6 +16,11 @@ services.rdio = function() {
   return {
     getTopCharts: function(callback) {
       makeRequest("topcharts", callback);
+    },
+    getTrackInfo: function(key, callback) {
+      makeRequest('get?keys='+key, function(result) {
+        callback(result[key]);
+      });
     }
   };
 }();

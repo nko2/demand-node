@@ -18,10 +18,13 @@
   a(href="/logout") Logout this shit
 
 div#rdioPlayer
+div#nowPlaying
 div#dj
 
 script#tmpDJ(type="text/template")
   include includes/dj
+script#tmpNowPlaying(type="text/template")
+  include includes/nowplaying
 
 script
   window.playbackToken = "#{playbackToken}";
