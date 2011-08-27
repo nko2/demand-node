@@ -2,5 +2,41 @@
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body!= body
+    meta(charset="utf-8")
+    meta(name="description", content="Rdio based mass user-created playlist")
+    meta(name="keywords", content="knockout, knockout radio, node radio, node rdio, not turntable")
+    meta(property="og:title", content="Knockout Radio")
+    meta(property="og:type", content="media")
+    //- meta(property="og:image", content="")
+    meta(property="og:url", content="http://knockout.crunchtune.com/")
+    meta(property="og:site_name", content="Knockout Radio")
+    meta(property="fb:app_id", content="142525322505020")
+    meta(property="fb:admins", content="173348162721832, 100001246590908")
+
+    link(rel='stylesheet', href='/ui/shared/stylesheets/layout.css')
+    link(rel='stylesheet', href='/ui/shared/stylesheets/common.css')
+    link(rel='stylesheet', href='/ui/shared/stylesheets/typography.css')    
+
+  body
+    div#container
+      header#header
+        nav.primary.Inline
+          dl.UTL.Heading4.Chunk
+            dt.Heading1 Knockout Radio
+            dd.FLC Room Name Goes Here
+        nav.social
+          ul.UTL
+            li <fb:like href="http://knockout.crunchtune.com/" send="true" layout="box_count" width="450" show_faces="false" font="segoe ui"></fb:like>
+      article#content!= body
+    footer
+      ul#crowd.UTL
+        li.deep
+        li.shallow
+    script(type="text/javascript", src="/ui/shared/scripts/external/ender.min.js")
+    script(type="text/javascript", src="/ui/shared/scripts/plugins/fidel.js")
+    script(type="text/javascript", src="/ui/shared/scripts/plugins/plax.js")
+    script(type="text/javascript", src="/ui/shared/scripts/plax.js")
+    script(type="text/javascript", src="/ui/shared/scripts/app.js")
+    script(type="text/javascript", src="/ui/shared/scripts/site.js")
+    script(src="http://connect.facebook.net/en_US/all.js#appId=142525322505020&amp;xfbml=1")
+    div#fb-root
