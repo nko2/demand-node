@@ -38,6 +38,15 @@ module.exports = function(app, rdio){
     res.redirect("/");
   });
 
+  app.get('/logout', function(req, res) {
+    req.session.oauth_token = null;
+    req.session.oauth_token_secret = null;
+    req.session.oauth_access_token = null;
+    req.session.oauth_access_token_secret = null;
+    req.session.isGuest = null;
+    res.redirect('/')
+  })
+
   app.get('/', function(req, res){
 
     if(req.session.oauth_access_token || req.session.isGuest) {
