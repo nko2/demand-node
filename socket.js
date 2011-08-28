@@ -22,6 +22,8 @@ module.exports = function(app, rooms, rdio, host) {
       if (!userId)
         room.guestCount++;
 
+      room.points[socket.id] = 100;
+
       if (room.currentTrack)
         socket.emit('djPlayedTrack', room.currentTrack);
       socket.broadcast.to(roomName).emit('userJoin', socket.id, firstName);
@@ -48,6 +50,10 @@ module.exports = function(app, rooms, rdio, host) {
           var room = rooms.get(roomName);
 
           if(userId in room.bids) return false; //double bidding D:
+
+          if(room.points[socket.id] < bidAmount) bidAmount = room.points[socket.id];
+
+          room.points[socket.id] -= bidAmount;
 
           room.bidTotal = parseInt(room.bidTotal)+parseInt(bidAmount);
           room.usersBid++;
@@ -94,7 +100,21 @@ module.exports = function(app, rooms, rdio, host) {
     };
 
     socket.on('songEnded', function() {
-      setDJ();
+      socket.get('room', function(error, roomName) {
+        var clients = io.sockets.clients(roomName);
+        var room = rooms.get(roomName);
+        room.points[socket.id] += 25;
+
+        console.log('song end, awarding cake')
+
+        setDJ();
+
+        for(var i = clients.length; i--;) {
+          var client = clients[i];
+          console.log(client.id)
+          client.emit('updatePoints', room.points[client.id]);
+        }
+      });
     });
 
     socket.on('sendMessage', function(name, message) {

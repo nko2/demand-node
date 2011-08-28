@@ -9,6 +9,7 @@ var SearchController = Fidel.ViewController.extend ({
     var self = this,
         query = this.searchBox.val();
     if (e.keyCode == 13) {
+      console.log('searching')
       services.rdio.search(query, function(data){
         self.results(data);
       });

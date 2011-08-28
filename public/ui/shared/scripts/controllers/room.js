@@ -27,6 +27,7 @@ var RoomController = Fidel.ViewController.extend({
     this.socket.on('bidPlaced', this.proxy(this.updateBid));
     this.socket.on('resetBid', this.proxy(this.resetBid));
     this.socket.on('unsetDJ', this.proxy(this.unsetDJ));
+    this.socket.on('updatePoints', this.proxy(this.updatePoints));
     this.on('songEnded', function(e) {
       self.socket.emit('songEnded');
     });
@@ -108,5 +109,8 @@ var RoomController = Fidel.ViewController.extend({
   },
   updateBid: function(total) {
     $('.topBid').html(total);
+  },
+  updatePoints: function(points) {
+    console.log('update points', points);
   }
 });

@@ -1,6 +1,5 @@
 var url = require('url'),
-    R = require("resistance").R,
-    services = require('./services.js')();
+    R = require("resistance").R;
 
 var GuestUser = { 
   firstName: 'Guest'+(~~(Math.random()*100000)),
@@ -110,28 +109,13 @@ module.exports = function(app, rooms, rdio, host){
         var user = data[0],
             playbackToken = data[1];
 
-        R.series([
-          function(cb) {
-            services.getPoints(user.key, function(points) {
-              cb(points);
-            })
-          }
-        ], function(data) {
-          var points = data[0];
-
-          //services.adjustPoints(user.key, 1);
-
-          console.log(points);
-
-          res.render('main', {
-            playbackToken: playbackToken,
-            title: 'Knockout Radio',
-            isHomepage: false,
-            isGuest: req.session.isGuest,
-            user: user,
-            points: points,
-            room: room
-          });
+        res.render('main', {
+          playbackToken: playbackToken,
+          title: 'Knockout Radio',
+          isHomepage: false,
+          isGuest: req.session.isGuest,
+          user: user,
+          room: room
         });
       });
 
