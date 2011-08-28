@@ -10,16 +10,14 @@
 - scripts.push("/ui/shared/scripts/controllers/search.js")
 - scripts.push("/ui/shared/scripts/pages/room.js")
 
-
-div#bidder
-  include includes/bidder
-
-
-div#Left
+div#section
   div#rdioPlayer
   div#dj
 
-div#Right
+div#aside
+  div#bidder.Module
+    include includes/bidder
+
   div#search.Module
     input(type='text', placeholder="Add a song to your playlist")
     ul#results.UTL
