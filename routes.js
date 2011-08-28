@@ -61,10 +61,11 @@ module.exports = function(app, rooms, rdio, host){
 
   app.get('/rooms/:roomSlug', function(req, res){
     var slug = req.params.roomSlug;
-    console.log(slug);
     var room = rooms.getFromSlug(slug);
-    if (!room)
+    if (!room) {
       res.redirect('/rooms/')
+      return
+    }
     if(req.session.oauth_access_token || req.session.isGuest) {
 
       R.parallel([
