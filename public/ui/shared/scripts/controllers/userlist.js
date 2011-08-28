@@ -6,7 +6,7 @@ var UserListController = Fidel.ViewController.extend({
 		this.onUserJoin(-1, window.firstName);
 	},
 	format: function(socketId, name) {
-		return '<li data-socketid="'+socketId+'">'+name+'</li>';
+		return '<li class="user" data-socketid="'+socketId+'">'+name+'</li>';
 	},
 	loadUsers: function(data) {
 		console.log('load users', data);
@@ -14,7 +14,8 @@ var UserListController = Fidel.ViewController.extend({
 		for (var socketId in data) {
 			html.push(this.format(socketId, data[socketId]));
 		}
-		this.find('ul').html(html.join(''));
+		this.find('ul').find('.user').remove();
+		this.find('ul').append(html.join(''));
 	},
 	onUserJoin: function(socketId, name) {
 		this.find('ul').append(this.format(socketId, name));
