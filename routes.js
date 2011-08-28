@@ -1,4 +1,6 @@
-var url = require('url');
+var url = require('url'),
+    R = require("resistance").R,
+    services = require('./services.js')();
 
 module.exports = function(app, rdio, host){
 
@@ -49,42 +51,61 @@ module.exports = function(app, rdio, host){
 
   app.get('/', function(req, res){
 
-    var services = require('./services.js')();
-
     if(req.session.oauth_access_token || req.session.isGuest) {
-      rdio.api(
-        req.session.oauth_access_token,
-        req.session.oauth_access_token_secret,
-        {
-          method: 'currentUser'
+
+      R.parallel([
+        function(cb) {
+          rdio.api(
+            req.session.oauth_access_token,
+            req.session.oauth_access_token_secret,
+            {
+              method: 'currentUser'
+            },
+            function(err, data, response) {
+              var user = JSON.parse(data).result;
+              console.log(user);
+              cb(user);
+            }
+          );
         },
-        function(err, data, response) {
-          var user = JSON.parse(data).result;
-
-          console.log(user);
-
+        function(cb) {
           rdio.getPlaybackToken(
             req.session.oauth_access_token,
             req.session.oauth_access_token_secret,
             host,
             function(err, data, response) {
-              console.log(data);
-
-              var points = services.getPoints(user.key);
-
-              console.log(points);
-
-              res.render('main', {
-                playbackToken: JSON.parse(data).result,
-                title: 'Knockout Radio',
-                isGuest: req.session.isGuest,
-                user: user,
-                points: points
-              });
+              var playbackToken = JSON.parse(data).result
+              cb(playbackToken);
             }
           );
         }
-      );
+      ], function(data) {
+        var user = data[0],
+            playbackToken = data[1];
+
+        R.series([
+          function(cb) {
+            services.getPoints(user.key, function(points) {
+              cb(points);
+            })
+          }
+        ], function(data) {
+          var points = data[0];
+
+          //services.adjustPoints(user.key, 1);
+
+          console.log(points);
+
+          res.render('main', {
+            playbackToken: playbackToken,
+            title: 'Knockout Radio',
+            isGuest: req.session.isGuest,
+            user: user,
+            points: points
+          });
+        });
+      });
+
     } else {
       res.render('index', {
         title: 'Knockout Radio'
