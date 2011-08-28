@@ -42,7 +42,7 @@ h2 { font-size: 26px; font-weight: bold; }
 #nowPlaying, #selectedTrack, #dj { display: none; padding: 10px; background: rgba(255,255,255,.9); }
 	#nowPlaying .left, #selectedTrack .left { display: inline; float: left; }
 		#nowPlaying .left img, #selectedTrack .left img { width: 100px; height: 100px; }
-	#nowPlaying .right, #selectedTrack .right { float: right; width: 598px; text-align: right; background: transparent; }
+	#nowPlaying .right, #selectedTrack .right { float: right; width: 200px; text-align: right; background: transparent; }
 		#nowPlaying .right ul, #nowPlaying .right ul li, #selectedTrack .right ul, #selctedTrack .right ul li { background: transparent; }
 		#nowPlaying ul li, #selectedTrack ul li { padding: 7px 0; border: none; }
 
@@ -81,3 +81,7 @@ h2 { font-size: 26px; font-weight: bold; }
 	.Rooms a { float: left; }
 	.Rooms .users { float: right; }
 
+.band-info { /*position: absolute; left: 60px; top: 5px; width: 370px;*/ }
+	.band-info p { line-height: 50px; font-size: 20px; width: 370px; overflow: hidden; white-space: nowrap; display: block; }
+
+		#album-image { float: left; margin-right: 10px; }

@@ -28,6 +28,7 @@ var RoomController = Fidel.ViewController.extend({
     this.socket.on('resetBid', this.proxy(this.resetBid));
     this.socket.on('unsetDJ', this.proxy(this.unsetDJ));
     this.socket.on('updatePoints', this.proxy(this.updatePoints));
+    this.socket.on('updateVotes', this.proxy(this.updateVotes));
     this.on('songEnded', function(e) {
       self.socket.emit('songEnded');
     });
@@ -49,6 +50,7 @@ var RoomController = Fidel.ViewController.extend({
     $('#listener').hide();
     $('#selectedTrack').hide();
     $('#dj').show('block');
+    $('.noDJ').hide();
   },
   unsetDJ: function() {
     console.log('unsetting dj');
@@ -58,6 +60,8 @@ var RoomController = Fidel.ViewController.extend({
     $('#selectedTrack').show();
     $('#dj').hide();
     $('#nowPlaying').hide();
+    $('.score').html(0);
+    $('.noDJ').show();
   },
   showDJ: function() {
     var self = this;
@@ -123,5 +127,9 @@ var RoomController = Fidel.ViewController.extend({
   updatePoints: function(points) {
     console.log('update points', points);
     $('.points').html(points);
+  },
+  updateVotes: function(votes) {
+    console.log('updating score', votes);
+    $('.score').html(votes);
   }
 });

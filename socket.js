@@ -150,16 +150,17 @@ module.exports = function(app, rooms, rdio, host) {
         var negativeThreshold = ~((client.length/2)-1);
         if(negativeThreshold > 0) negativeThreshold = 0;
         if(room.score <= negativeThreshold) {
+          //kick them out!
           setDJ();
-
           room.points[room.currentDJ] -= 10;
-
           for(var i = clients.length; i--;) {
             var client = clients[i];
             room.points[client.id] += 10;
             client.emit('updatePoints', room.points[client.id]);
           }
         }
+
+        socket.to(roomName).emit('updateVotes', room.score);
       });
     });
 

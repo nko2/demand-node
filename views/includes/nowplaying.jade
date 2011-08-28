@@ -1,11 +1,20 @@
 div.left
-		img(src="{!= track.icon !}")
+  .band-info
+    p
+      span#album-image
+        img(src="{!= track.icon !}")
+      span#song-name {!= track.name !}
+      br
+      span.artist
+        | By:
+        span#band-name {!= track.artist !}
 
 div.right
-	ul.UTL
-		li
-			span Now Playing
-		li
-			div {!= track.artist !}
-		li
-			div {!= track.name !}
+  ul.UTL
+    li
+      span Score: 
+        span.score 0
+    li.noDJ
+      a.like I like this
+    li.noDJ
+      a.hate This is shit
