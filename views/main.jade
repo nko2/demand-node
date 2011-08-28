@@ -39,5 +39,6 @@ script#tmpNowPlaying(type="text/template")
 script
   window.playbackToken = "#{playbackToken}";
   window.firstName = "#{user.firstName}";
+  window.user_id = "#{user.key}";
   window.roomName = '#{room.name}';
   window.roomSlug = '#{room.slug}';

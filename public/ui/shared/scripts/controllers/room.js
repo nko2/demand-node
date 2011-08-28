@@ -1,6 +1,7 @@
 var RoomController = Fidel.ViewController.extend({
   events: {
-    playTrackAction: 'click ol li .play' //delegateActions won't work here - bug in fidel
+    playTrackAction: 'click ol li .play', //delegateActions won't work here - bug in fidel
+    placeBid: 'click button.bidSubmit'
   },
   init: function() {
     var self = this;
@@ -21,7 +22,8 @@ var RoomController = Fidel.ViewController.extend({
     this.socket.on('setDJ', this.proxy(this.setDJ));
     this.socket.on('djPlayedTrack', this.proxy(this.djPlayedTrack));
     this.socket.emit('join', this.room, window.firstName);
-    
+    this.socket.on('bidPlaced', this.proxy(this.updateBid));
+    this.socket.on('resetBid', this.proxy(this.resetBid));
   },
   djPlayedTrack: function(trackKey) {
     if (!this.isDJ) {
@@ -60,5 +62,28 @@ var RoomController = Fidel.ViewController.extend({
       var html = str.template(tmp, { track: data });
       self.find("#nowPlaying").html(html);
     });
+  },
+  placeBid: function(e) {
+    e.preventDefault();
+    var bidInput = $('.bidAmount')[0],
+        bidAmount = bidInput.value;
+    if(bidAmount < 1) return; //NOPE.AVI
+
+    this.socket.emit('placeBid', this.room, window.user_id);
+
+    console.log('bidded')
+
+    bidInput.disabled = true;
+    e.target.disabled = true;
+
+    this.resetBid();
+  },
+  resetBid: function() {
+    $('.bidAmount')[0].disabled = false;
+    $('.bidSubmit')[0].disabled = false;
+    console.log($('.topBid'))
+  },
+  updateBid: function(total) {
+    console.log(total);
   }
 });
