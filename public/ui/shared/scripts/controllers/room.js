@@ -32,6 +32,7 @@ var RoomController = Fidel.ViewController.extend({
     this.socket.on('updatePoints', this.proxy(this.updatePoints));
     this.socket.on('updateVotes', this.proxy(this.updateVotes));
     this.on('songEnded', function(e) {
+      self.unsetDJ();
       self.socket.emit('songEnded');
     });
   },
