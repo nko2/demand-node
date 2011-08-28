@@ -11,6 +11,8 @@ var express = require('express'),
 var querystring = require('querystring'),
     RedisStore = require('connect-redis')(express);
 
+var Rooms = require('./classes/rooms');
+
 var ui = function(req, res, next) {
   res.local("scripts", []);
   res.local("stylesheets", []);
@@ -69,10 +71,13 @@ var rdio = require('rdio')({
   callback_url: "http://"+server_host+":"+server_port+"/oauth/callback"
 });
 
+//data
+var rooms = new Rooms();
+
 //routes
-require('./routes')(app, rdio, server_host);
+require('./routes')(app, rooms, rdio, server_host);
 require('./api')(app, rdio);
-require('./socket')(app, rdio, server_host);
+require('./socket')(app, rooms, rdio, server_host);
 app.listen(server_port);
 
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

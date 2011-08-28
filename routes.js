@@ -2,7 +2,7 @@ var url = require('url'),
     R = require("resistance").R,
     services = require('./services.js')();
 
-module.exports = function(app, rdio, host){
+module.exports = function(app, rooms, rdio, host){
 
   app.get ('/oauth/login', function(req, res, params) {
     if(!req.session.oauth_access_token) {
@@ -30,7 +30,7 @@ module.exports = function(app, rdio, host){
       function(error, oauth_access_token, oauth_access_token_secret, results) {
         req.session.oauth_access_token = oauth_access_token;
         req.session.oauth_access_token_secret = oauth_access_token_secret;
-        res.redirect("/");
+        res.redirect("/rooms/");
       }
     )
   });
@@ -117,5 +117,9 @@ module.exports = function(app, rdio, host){
         isGuest: false
       });
     }
+  });
+
+  app.get('/rooms/', function(req, res) {
+
   });
 };
