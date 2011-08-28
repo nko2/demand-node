@@ -31,6 +31,7 @@ module.exports = function() {
           });
 
           cursor.toArray(function(err, docs) {
+            if(docs.length === 0) cb(null);
             var points = docs[0].points;
             if(points <= 0) {
               self.adjustPoints(user_id, 100);
