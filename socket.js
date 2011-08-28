@@ -15,6 +15,7 @@ module.exports = function(app, rooms, rdio, host) {
 
       var room = rooms.get(roomName);
       room.users[socket.id] = firstName;
+      room.userCount++;
 
       if (clients.length == 1) { //make dj
         socket.emit('setDJ');
@@ -48,10 +49,13 @@ module.exports = function(app, rooms, rdio, host) {
     socket.on('disconnect', function() {
       console.log("disconnect");
       socket.get('room', function(err, roomName) {
-        console.log("user left room: "+roomName);
-        var room = rooms.get(roomName); 
-        delete room.users[socket.id];
-        socket.broadcast.to(roomName).emit('userLeave', socket.id);
+        if (roomName) {
+          console.log("user left room: "+roomName);
+          var room = rooms.get(roomName); 
+          delete room.users[socket.id];
+          room.userCount--;
+          socket.broadcast.to(roomName).emit('userLeave', socket.id);
+        }
       });
     });
   });

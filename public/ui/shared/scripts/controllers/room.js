@@ -5,7 +5,6 @@ var RoomController = Fidel.ViewController.extend({
   init: function() {
     var self = this;
     this.isDJ = false;
-    this.room = window.room; //TODO
     this._playerReady = false;
     this.player = new Player(this.playbackToken);
     this.player.on('ready', this.proxy(this.onPlayerReady));

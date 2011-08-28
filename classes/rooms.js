@@ -1,18 +1,41 @@
 var Rooms = function() {
 	this._data = {};
+	this._count = 0;
 };
-Rooms.prototype.create = function() {
+Rooms.prototype.makeSlug = function(str) {
+	str = str.toLowerCase();
+	str = str.replace(/[^a-z0-9]+/g, '-');
+	str = str.replace(/^-|-$/g, '');
+	return str;
+};
+Rooms.prototype.create = function(roomName, slug) {
 	return {
+		name: roomName,
+		slug: slug,
 		chatMessages: [],
 		users: {},
+		userCount: 0,
 		currentTrack: ''
 	};
 };
+Rooms.prototype.getFromSlug = function(slug) {
+	return this._data[slug];
+};
 Rooms.prototype.get = function(roomName) {
-  if (!this._data[roomName]) {
-		  this._data[roomName] = this.create();
+	var slug = this.makeSlug(roomName);
+  if (!this._data[slug]) {
+		  this._data[slug] = this.create(roomName, slug);
+			this._count++;
   }
-  return this._data[roomName];
+  return this._data[slug];
+};
+
+Rooms.prototype.all = function() {
+	return this._data;
+};
+
+Rooms.prototype.count = function() {
+	return this._count;
 };
 
 module.exports = Rooms;
