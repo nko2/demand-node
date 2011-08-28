@@ -16,8 +16,11 @@ var SearchController = Fidel.ViewController.extend ({
   },
   results: function(data){
     var results = data.results;
+    this.resultsNode.html('');
     for(i = 0, c = results.length; i < c; i++){
-      this.resultsNode.append('<li class="song" data-trackkey='+ results[i].key +'>' + results[i].name + '</li>');
+      if (results[i].canStream) {
+        this.resultsNode.append('<li class="song" data-trackkey='+ results[i].key +'>' + results[i].artist + ' - ' + results[i].name + ' ('+ results[i].album+')</li>');
+      }
     }
     this.resultsNode.append('<li class="hide">Hide Results</li>');
   },
