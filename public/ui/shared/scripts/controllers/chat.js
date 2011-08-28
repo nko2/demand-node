@@ -33,5 +33,7 @@ var ChatController = Fidel.ViewController.extend({
 	onMessageReceived: function(name, message) {
 		console.log("new chat message", message);
 		this.find('ul').append(this.formatMessage(name, message));
+		var chatContainer = $('.chatContainer')[0];
+		chatContainer.scrollTop = chatContainer.scrollHeight;
 	}
 });

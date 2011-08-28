@@ -50,6 +50,7 @@ h2 { font-size: 26px; font-weight: bold; }
 	#chat ul { border: 1px solid #DDE0E5; }
 		#chat ul li { padding: 6px 4px; text-align: left; }
 			#chat ul li span.user { font-weight: bold; }
+	#chat .chatContainer { height: 200px; background: #fff; overflow: auto; }
 
 #search { float: none; margin-top: 10px; }
 	#search input { width: 674px; }
