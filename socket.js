@@ -97,7 +97,7 @@ module.exports = function(app, rooms, rdio, host) {
         var room = rooms.get(roomName);
         
         //socket.broadcast.to(roomName).emit('unsetDJ');
-        socket.emit('unsetDJ');
+        //socket.emit('unsetDJ');
         socket.broadcast.to(roomName).emit('resetBid');
         socket.emit('resetBid');
 
@@ -117,7 +117,7 @@ module.exports = function(app, rooms, rdio, host) {
         console.log(topBidUser);
         socket.broadcast.to(roomName).emit('setDJ', topBidUser);
         console.log("set dj "+topBidUser);
-        //socket.emit('setDJ', topBidUser);
+        socket.emit('setDJ', topBidUser);
 
         room.bidTotal = 0;
         room.usersBid = 0;

@@ -23,12 +23,12 @@ var RoomController = Fidel.ViewController.extend({
     this.socket = io.connect('http://'+document.location.hostname); //TODO
     this.chat = new ChatController({ el: this.find("#chat"), socket: this.socket });
     this.userList = new UserListController({ el: this.find("#userlist"), socket: this.socket });
+    this.socket.on('unsetDJ', this.proxy(this.unsetDJ));
     this.socket.on('setDJ', this.proxy(this.setDJ));
     this.socket.on('djPlayedTrack', this.proxy(this.djPlayedTrack));
     this.socket.emit('join', this.room, window.firstName, window.userId);
     this.socket.on('bidPlaced', this.proxy(this.updateBid));
     this.socket.on('resetBid', this.proxy(this.resetBid));
-    this.socket.on('unsetDJ', this.proxy(this.unsetDJ));
     this.socket.on('updatePoints', this.proxy(this.updatePoints));
     this.socket.on('updateVotes', this.proxy(this.updateVotes));
     this.on('songEnded', function(e) {
@@ -43,7 +43,10 @@ var RoomController = Fidel.ViewController.extend({
   },
   setDJ: function(userId) {
     console.log("set dj", userId);
-    if(window.userId != userId) return false; //NOPE
+    if(window.userId != userId) {
+      this.isDJ = false;
+      return;
+    }
 
     console.log("set as DJ");
     this.isDJ = true;
