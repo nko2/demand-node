@@ -3,11 +3,8 @@ var SearchController = Fidel.ViewController.extend ({
     keystroke: 'keyup #search input',
     hide: 'click #search #hide'
   },
-	init: function() {
-		console.log('fired search cont');
-	},
+	init: function() { },
 	keystroke: function(e){
-		console.log('fired stroke');
 		var self = this,
 				query = $('#search input').val();
     if (e.keyCode == 13) {
@@ -17,7 +14,6 @@ var SearchController = Fidel.ViewController.extend ({
     }
 	},
 	results: function(data){
-		console.log(data, 'results');
 		var results = data.results;
 		for(i = 0, c = results.length; i < c; i++){
 			$('#search #results').append('<li data-trackkey='+ results[i].key +'>' + results[i].name + '</li>');

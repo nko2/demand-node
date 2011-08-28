@@ -16,15 +16,20 @@ div#bidder
 
 
 div#rdioPlayer
-div#chat
-  include includes/chat
-div#userlist
-  include includes/userlist
+
 div#dj
+
 div#search.Module
   input(type='text', placeholder="Add a song to your playlist")
   ul#results.UTL
-div#nowPlaying
+
+div#nowPlaying.Module
+
+div#userlist.Module
+  include includes/userlist
+
+div#chat.Module
+  include includes/chat
 
 script#tmpDJ(type="text/template")
   include includes/dj

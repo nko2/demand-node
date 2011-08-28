@@ -35,9 +35,13 @@ body { }
 	#playlist li span.title { display: inline-block; max-width: 382px; word-wrap: break-word; }
 	#playlist li span.time { float: right; padding-right: 20px; }
 
-#search, #nowPlaying { float: right; width: 220px; }
-	#search input { width: 200px; padding: 6px 10px; border: none; text-align: center; }
-	#search ul { margin-top: -3px; border: 1px solid #DDE0E5; }
-		#search ul li { padding: 6px 10px; text-align: center; }
+#search, #nowPlaying, #chat, #userlist { float: right; width: 220px; }
+	#search input, #chat input { width: 200px; padding: 6px 10px; border: none; }
+	#search ul, #chat ul { border: 1px solid #DDE0E5; }
+		#chat ul li { padding: 6px 4px; text-align: left; }
+			#chat ul li span.user { font-weight: bold; }
+	#search ul { margin-top: -3px; }
+		#search ul li { padding: 6px 10px; }
+
 #nowPlaying { text-align: center; }
 	#nowPlaying ul li { padding: 10px; }

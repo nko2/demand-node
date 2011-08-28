@@ -1,10 +1,19 @@
 var ChatController = Fidel.ViewController.extend({
+  events: {
+    keystroke: 'keyup #chat input'
+  },
 	init: function() {
 		this.socket.on('messageReceived', this.proxy(this.onMessageReceived));
 		this.socket.on('loadChat', this.proxy(this.loadChat));
 	},
+	keystroke: function(e){
+		var self = this;
+    if (e.keyCode == 13) {
+    	self.sendMessage();
+    }
+	},
 	formatMessage: function(name, message) {
-		return '<li><span>'+name+'</span>'+message+'</li>';
+		return '<li><span class="user">'+name+'</span> : '+message+'</li>';
 	},
 	loadChat: function(data) {
 		console.log('load chat', data);
