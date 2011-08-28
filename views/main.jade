@@ -7,6 +7,7 @@
 - scripts.push("/ui/shared/scripts/controllers/chat.js")
 - scripts.push("/ui/shared/scripts/controllers/userlist.js")
 - scripts.push("/ui/shared/scripts/controllers/room.js")
+- scripts.push("/ui/shared/scripts/controllers/search.js")
 - scripts.push("/ui/shared/scripts/pages/room.js")
 
 div#rdioPlayer
@@ -14,8 +15,11 @@ div#chat
   include includes/chat
 div#userlist
   include includes/userlist
-div#nowPlaying
 div#dj
+div#search.Module
+  input(type='text', placeholder="Add a song to your playlist")
+  ul#results.UTL
+div#nowPlaying
 
 script#tmpDJ(type="text/template")
   include includes/dj

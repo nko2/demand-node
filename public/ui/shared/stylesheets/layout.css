@@ -20,18 +20,24 @@ body { }
 	.social ul { width: 50px; }	
 		.social ul li { display: inline; float: left; width: auto; height: 100%; margin-right: 26px; }
 
-#content { position: relative; z-index: 3; background: transparent; width: 920px; height: auto; margin-top: 10px; }
+#content { position: relative; z-index: 3; background: transparent; width: 960px; height: auto; margin-top: 10px; }
 
 #container label.error { display: none; }
 
-#crowd { position: fixed; bottom: -65px; width: 110%; height: 312px; margin-top: -310px; }
-	#crowd li { position: absolute; background-image: url('../images/crowd.png'); background-repeat: no-repeat; width: inherit; height: 312px; }
+#crowd { position: fixed; bottom: -65px; background-color: transparent; width: 110%; height: 312px; margin-top: -310px; }
+	#crowd li { position: absolute; background-image: url('../images/crowd.png'); background-repeat: no-repeat; width: inherit; height: 312px; border: none; }
     #crowd .deep { z-index: 2; left: -40px; background-position: 0 bottom; }
     #crowd .shallow { z-index: 1; left: -100px; bottom: 0; background-position: 0 top; }
 
-#playlist li span.play { visibility: hidden; position: relative; display: inline-block; top: 10px; left: -28px; width: 41px; height: 41px; background: url(../images/play.png) no-repeat 0 0; }
-	#playlist li:hover span.play { visibility: visible; cursor: pointer; }
+#playlist { width: 720px; }
+	#playlist li span.play { visibility: hidden; position: relative; display: inline-block; top: 10px; left: -28px; width: 41px; height: 41px; background: url(../images/play.png) no-repeat 0 0; cursor: pointer; }
+	#playlist li:hover span.play { visibility: visible; }
+	#playlist li span.title { display: inline-block; max-width: 382px; word-wrap: break-word; }
+	#playlist li span.time { float: right; padding-right: 20px; }
 
-#playlist li span.title { display: inline-block; max-width: 382px; word-wrap: break-word; }
-
-#playlist li span.time { float: right; padding-right: 20px; }
+#search, #nowPlaying { float: right; width: 220px; }
+	#search input { width: 200px; padding: 6px 10px; border: none; text-align: center; }
+	#search ul { margin-top: -3px; border: 1px solid #DDE0E5; }
+		#search ul li { padding: 6px 10px; text-align: center; }
+#nowPlaying { text-align: center; }
+	#nowPlaying ul li { padding: 10px; }

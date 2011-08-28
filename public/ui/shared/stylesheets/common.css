@@ -5,14 +5,15 @@ html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,figure,pre,a,abb
 header,nav,article,section,figure,aside,footer { display: block; }
 
 /* COMMON */
-ol { list-style-type: none; background-color: #fff; max-width: 540px; width: 540px; margin: 0; padding: 0; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border: 1px solid #DDE0E5;
-counter-reset: item;
-}
+ul, ol { list-style-type: none; background-color: #fff; margin: 0; padding: 0; }
+	ul li, ol li { border-top: 1px solid #DDE0E5; text-indent: 0; }
+
+ol { counter-reset: item; }
 	ol li::before { display: inline-block; content: counter(item) "."; counter-increment: item; text-indent: -20px; margin-left: 40px; }
-	ol li { border-top: 1px solid #DDE0E5; text-indent: 0; }
-		ol li:first-child { border-top-left-radius: 10px; border-top-right-radius: 10px; }
-		ol li:last-child { border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; }
 		ol li:hover { background-color: #DDE0E5; }
+
+ul.Plain { background-color: transparent; }
+	ul.Plain li { border: none; }
 
 .FLC { clear: both; }
 .FLC:after { clear: both; content: "."; display: block; height: 0; visibility: hidden; }
@@ -22,3 +23,6 @@ counter-reset: item;
 .Module { float: left; width: 100%; margin-bottom: 10px; }
 
 .UTL { list-style-type: none; margin: 0; padding: 0; }
+.Rnd { border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border: 1px solid #DDE0E5; }
+		ul.Rnd li:first-child, ol.Rnd li:first-child { border-top-left-radius: 10px; border-top-right-radius: 10px; }
+		ul.Rnd li:last-child, ol.Rnd li:last-child { border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; }

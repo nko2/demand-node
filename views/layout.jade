@@ -29,7 +29,7 @@ html
             dt.Heading1 Knockout Radio
             dd.FLC Room Name Goes Here
         nav.primary.Inline
-          ul.UTL.Chunk
+          ul.Plain.UTL.Chunk
             - if(session.oauth_access_token !=null)
               li.authed
                 - if(isGuest)
@@ -46,11 +46,11 @@ html
                   li
                     a(href="/guest") Continue anyways
         nav.social
-          ul.UTL
+          ul.Plain.UTL
             li <fb:like href="http://knockout.crunchtune.com/" send="true" layout="box_count" width="450" show_faces="false" font="segoe ui"></fb:like>
       article#content.FLC!= body
     footer
-      ul#crowd.UTL
+      ul#crowd.Plain.UTL
         li.deep
         li.shallow
     div#fb-root
@@ -60,9 +60,8 @@ html
     script(type="text/javascript", src="/ui/shared/scripts/plugins/plax.js")
     script(type="text/javascript", src="/ui/shared/scripts/plax.js")
     script(type="text/javascript", src="/ui/shared/scripts/utils.js")
-    script(type="text/javascript", src="/ui/shared/scripts/global.js")
-
     script(src="http://connect.facebook.net/en_US/all.js#appId=142525322505020&amp;xfbml=1")
     - scripts.forEach(function(s) {
       script(src=s)
     - })
+    script(type="text/javascript", src="/ui/shared/scripts/global.js")
