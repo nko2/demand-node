@@ -2,25 +2,36 @@
 html { background: url('../images/bg.jpg') repeat 0 0; }
 body { }
 
-#container { width: 728px; height: 100%; margin: 0 auto 20px; overflow: hidden; }
+#container { width: 960px; height: 100%; margin: 0 auto 20px; overflow: hidden; }
 
 #header { width: 100%; height: 75px; }
 
 #meta { position: relative; float: left; width: 119px; height: 142px; margin-right: 232px; }
 
-.primary { margin-right: 22px; padding-top: 26px; }
+.primary { margin-right: 10px; padding-top: 26px; }
 	.primary dl { width: 100%; }
 		.primary dl dt, .primary dl dd { width: auto; height: 52px; margin-right: 20px; padding-left: 20px; line-height: 52px; }
 			.primary dl dt { display: inline; float: left; padding-left: 0; }
+	.primary ul li { width: 200px; text-align: center; }
+		.primary ul li.guest { padding-top: 8px; }
+		.primary ul li.authed { padding-top: 14px; }
 
-.social { float: left; margin-right: 2px; padding-top: 21px; }
+.social { float: right; padding-top: 21px; }
 	.social ul { width: 50px; }	
 		.social ul li { display: inline; float: left; width: auto; height: 100%; margin-right: 26px; }
 
-#content { position: relative; z-index: 3; background: #ccc; width: 688px; height: 430px; margin-top: 62px; padding: 20px; }
+#content { position: relative; z-index: 3; background: transparent; width: 920px; height: auto; margin-top: 10px; }
 
 #container label.error { display: none; }
 
 #crowd { position: fixed; bottom: -65px; width: 110%; height: 312px; margin-top: -310px; }
-    #crowd .deep { position: absolute; z-index: 2; left: -40px; background: url('../images/crowd.png') no-repeat 0 bottom; width: inherit; height: 312px; }
-    #crowd .shallow { position: absolute; z-index: 1; left: -100px; bottom: 0; background: url('../images/crowd.png') no-repeat 0 top; width: inherit; height: 312px; }
+	#crowd li { position: absolute; background-image: url('../images/crowd.png'); background-repeat: no-repeat; width: inherit; height: 312px; }
+    #crowd .deep { z-index: 2; left: -40px; background-position: 0 bottom; }
+    #crowd .shallow { z-index: 1; left: -100px; bottom: 0; background-position: 0 top; }
+
+#playlist li span.play { visibility: hidden; position: relative; display: inline-block; top: 10px; left: -28px; width: 41px; height: 41px; background: url(../images/play.png) no-repeat 0 0; }
+	#playlist li:hover span.play { visibility: visible; cursor: pointer; }
+
+#playlist li span.title { display: inline-block; max-width: 382px; word-wrap: break-word; }
+
+#playlist li span.time { float: right; padding-right: 20px; }

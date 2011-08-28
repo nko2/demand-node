@@ -41,11 +41,11 @@ module.exports = function(app, rdio, host){
   });
 
   app.get('/logout', function(req, res) {
-    req.session.oauth_token = null;
-    req.session.oauth_token_secret = null;
-    req.session.oauth_access_token = null;
-    req.session.oauth_access_token_secret = null;
-    req.session.isGuest = null;
+    delete req.session.oauth_token
+    delete req.session.oauth_token_secret
+    delete req.session.oauth_access_token
+    delete req.session.oauth_access_token_secret
+    delete req.session.isGuest
     res.redirect('/')
   })
 
@@ -108,7 +108,8 @@ module.exports = function(app, rdio, host){
 
     } else {
       res.render('index', {
-        title: 'Knockout Radio'
+        title: 'Knockout Radio',
+        isGuest: false
       });
     }
   });

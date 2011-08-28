@@ -21,21 +21,40 @@ html
     - })
 
   body
-    div#container
+    div#container.FLC
       header#header
+
         nav.primary.Inline
           dl.UTL.Heading4.Chunk
             dt.Heading1 Knockout Radio
             dd.FLC Room Name Goes Here
+        nav.primary.Inline
+          ul.UTL.Chunk
+            - if(session.oauth_access_token !=null)
+              li.authed
+                - if(isGuest)
+                  a(href="/oauth/login") Login to fully experience this shit.
+                - else
+                  a(href="/logout") Logout this shit
+            - else
+                - if(isGuest)
+                  li.guest
+                    a(href="/oauth/login") Login to fully experience this shit.
+                -else
+                  li
+                    a(href="/oauth/login") Login with Rdio<sup>&reg</sup>
+                  li
+                    a(href="/guest") Continue anyways
         nav.social
           ul.UTL
             li <fb:like href="http://knockout.crunchtune.com/" send="true" layout="box_count" width="450" show_faces="false" font="segoe ui"></fb:like>
-      article#content!= body
+      article#content.FLC!= body
     footer
       ul#crowd.UTL
         li.deep
         li.shallow
     div#fb-root
+
     script(type="text/javascript", src="/ui/shared/scripts/external/ender.min.js")
     script(type="text/javascript", src="/ui/shared/scripts/plugins/fidel.js")
     script(type="text/javascript", src="/ui/shared/scripts/plugins/plax.js")

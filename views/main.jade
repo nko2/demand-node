@@ -7,18 +7,6 @@
 - scripts.push("/ui/shared/scripts/controllers/room.js")
 - scripts.push("/ui/shared/scripts/pages/room.js")
 
-- if(isGuest)
-  p You are logged in as a guest. You should really, really 
-    a(href="/oauth/login") Login
-    |  to fully experience this shit.
-
-- else
-  p Welcome to knockout radio. You are fucking logged in.
-
-  a(href="/logout") Logout this shit
-
-  h1 #{user.firstName}
-
 div#rdioPlayer
 div#nowPlaying
 div#dj

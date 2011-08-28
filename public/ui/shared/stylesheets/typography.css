@@ -1,9 +1,9 @@
 /* TYPOGRAPHY */
-body { font-family: Helvetica, Arial; color: #000; }
-a { color: #bfbdad; text-decoration: none; cursor: pointer; }
+body { font-family: "Helvetica Neue", helvetica, arial, sans-serif; color: #000; }
+a { color: #000; text-decoration: none; cursor: pointer; }
 a img { border: none; }
 a:hover { text-decoration: none; }
-input { font-size: 14px; color: #6e6b6b; outline: none; }
+input { font-size: 14px; color: #000; outline: none; }
 
 @font-face {
     font-family: 'ChunkFiveRegular';
@@ -27,4 +27,5 @@ input { font-size: 14px; color: #6e6b6b; outline: none; }
 
 .Note { font-size: 11px; }
 p { font-size: 12px; }
-.error { display: inline; width: 296px; float: left; font-weight: bold; color: #c81a1a !important; text-align: center; }
+ol { font-size: 18px; line-height: 48px; color: #CDD0D5; }
+.title { font-size: 14px; font-weight: bold; line-height: 18px; color: #2C3034; }
