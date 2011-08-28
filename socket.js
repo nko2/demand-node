@@ -119,7 +119,7 @@ module.exports = function(app, rooms, rdio, host) {
       socket.get('room', function(error, roomName) {
         var clients = io.sockets.clients(roomName);
         var room = rooms.get(roomName);
-        room.points[socket.id] += room.wonBid*2;
+        room.points[socket.id] += (room.wonBid*2)-10;
 
         console.log('song end, awarding cake')
 
@@ -127,7 +127,7 @@ module.exports = function(app, rooms, rdio, host) {
 
         for(var i = clients.length; i--;) {
           var client = clients[i];
-          console.log(client.id)
+          room.points[client.id] += 10;
           client.emit('updatePoints', room.points[client.id]);
         }
       });
