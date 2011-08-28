@@ -69,9 +69,7 @@ var RoomController = Fidel.ViewController.extend({
         bidAmount = bidInput.value;
     if(bidAmount < 1) return; //NOPE.AVI
 
-    this.socket.emit('placeBid', this.room, window.user_id);
-
-    console.log('bidded')
+    this.socket.emit('placeBid', this.room, window.user_id, bidAmount);
 
     bidInput.disabled = true;
     e.target.disabled = true;
@@ -81,9 +79,9 @@ var RoomController = Fidel.ViewController.extend({
   resetBid: function() {
     $('.bidAmount')[0].disabled = false;
     $('.bidSubmit')[0].disabled = false;
-    console.log($('.topBid'))
+    $('.topBid').html('0');
   },
   updateBid: function(total) {
-    console.log(total);
+    $('.topBid').html(total);
   }
 });
