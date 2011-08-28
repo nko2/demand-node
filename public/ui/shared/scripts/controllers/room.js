@@ -39,6 +39,7 @@ var RoomController = Fidel.ViewController.extend({
     }
   },
   setDJ: function(userId) {
+    console.log("set dj", userId);
     if(window.userId != userId) return false; //NOPE
 
     console.log("set as DJ");
@@ -87,7 +88,6 @@ var RoomController = Fidel.ViewController.extend({
       self.find("#nowPlaying").html(html);
       self.find("#nowPlaying").show('block');
     });
-    this.resetBid();
   },
   placeBid: function(e) {
     e.preventDefault();
