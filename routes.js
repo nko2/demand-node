@@ -175,6 +175,10 @@ module.exports = function(app, rooms, rdio, host){
 
   app.get('/create', function(req, res) {
     var roomName = req.query.name;
+    if(roomName.replace(' ', '').length == 0) {
+      res.redirect('/rooms/');
+      return;
+    }
     //TODO: should append a number until a unique room?
     var room = rooms.get(roomName);
     res.redirect('/rooms/'+room.slug);
