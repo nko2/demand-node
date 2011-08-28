@@ -32,21 +32,12 @@ html
               dd.FLC Welcome to #{room.name}
         nav.primary.Inline
           ul.Plain.UTL.Chunk
-            - if(session.oauth_access_token !=null)
+            - if(!isHomepage)
               li.authed
                 - if(isGuest)
                   a(href="/oauth/login") Login to fully experience this shit.
                 - else
                   a(href="/logout") Logout this shit
-            - else
-                - if(isGuest)
-                  li.guest
-                    a(href="/oauth/login") Login to fully experience this shit.
-                -else
-                  li
-                    a(href="/oauth/login") Login with Rdio<sup>&reg</sup>
-                  li
-                    a(href="/guest") Continue anyways
         nav.social
           ul.Plain.UTL
             li <iframe src="http://nodeknockout.com/iframe/demand-node" frameborder=0 scrolling=no allowtransparency=true width=115 height=25></iframe>

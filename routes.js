@@ -2,6 +2,11 @@ var url = require('url'),
     R = require("resistance").R,
     services = require('./services.js')();
 
+var GuestUser = { 
+  firstName: 'Guest'+(~~(Math.random()*100000)),
+  key: null
+};
+
 module.exports = function(app, rooms, rdio, host){
 
   app.get ('/oauth/login', function(req, res, params) {
@@ -48,13 +53,15 @@ module.exports = function(app, rooms, rdio, host){
     delete req.session.isGuest
     res.redirect('/')
   })
+
   app.get('/', function(req, res) {
     if(req.session.oauth_access_token || req.session.isGuest) {
       res.redirect("/rooms/");
     } else  {
       res.render('index', {
         title: 'Knockout Radio',
-        isGuest: false
+        isGuest: false,
+        isHomepage: true
       });
     }
   });
@@ -71,7 +78,7 @@ module.exports = function(app, rooms, rdio, host){
       R.parallel([
         function(cb) {
           if (req.session.isGuest) {
-            cb({ firstName: 'Guest' });
+            cb(GuestUser);
           } else {
             rdio.api(
               req.session.oauth_access_token,
@@ -119,6 +126,7 @@ module.exports = function(app, rooms, rdio, host){
           res.render('main', {
             playbackToken: playbackToken,
             title: 'Knockout Radio',
+            isHomepage: false,
             isGuest: req.session.isGuest,
             user: user,
             points: points,
@@ -134,17 +142,23 @@ module.exports = function(app, rooms, rdio, host){
 
   app.get('/rooms/', function(req, res) {
 
+    if(!req.session.oauth_access_token && req.session.isGuest == null) {
+      res.redirect("/");
+      return; //make sure the stuff below doesn't execute
+    }
+
     var user;
     var render = function() {
       res.render('rooms', {
         title: 'Rooms | Knockout Radio',
+        isHomepage: false,
         rooms: rooms,
         isGuest: req.session.isGuest,
         user: user
       });
     };
     if (req.session.isGuest) {
-      user = { firstName: 'Guest' };
+      user = GuestUser;
       render();
     } else {
       rdio.api(
