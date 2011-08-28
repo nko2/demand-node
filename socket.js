@@ -74,14 +74,13 @@ module.exports = function(app, rooms, rdio, host) {
           room.usersBid++;
 
           console.log("current bid total for room: "+room.bidTotal);
-          socket.to(roomName).emit('bidPlaced', room.bidTotal);
+          socket.broadcast.to(roomName).emit('bidPlaced', room.bidTotal);
 
           room.bids[userId] = bidAmount;
 
-          //TODO: check if all users bid, if true, setDJ
           if (!room.currentTrack) {
             var userStreamCount = (room.userCount - room.guestCount);
-            if (userStreamCount == 2) {//if only two users, both need to bid
+            if (userStreamCount <= 2) {//if only two users, both need to bid
               if (userStreamCount == room.usersBid)                 
                 setDJ();
             } else if (room.usersBid >= userStreamCount/2) {
@@ -94,11 +93,14 @@ module.exports = function(app, rooms, rdio, host) {
     });
 
     var setDJ = function() {
+      console.log("set dj");
       socket.get('room', function(error, roomName) {
         var room = rooms.get(roomName);
         
-        socket.to(roomName).emit('unsetDJ');
-        socket.to(roomName).emit('resetBid');
+        socket.broadcast.to(roomName).emit('unsetDJ');
+        socket.emit('unsetDJ');
+        socket.broadcast.to(roomName).emit('resetBid');
+        socket.emit('resetBid');
 
         var topBidAmount = -1,
             topBidUser = '';
@@ -112,6 +114,8 @@ module.exports = function(app, rooms, rdio, host) {
 
         room.currentDJ = topBidUser;
         room.wonBid = topBidAmount;
+        console.log(topBidUser);
+        socket.broadcast.emit('setDJ', topBidUser);
         socket.emit('setDJ', topBidUser);
 
         room.bidTotal = 0;
