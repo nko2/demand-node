@@ -61,3 +61,5 @@ body { }
 	#bidder ul li.bid input { width: 205px; text-align: left; }
 	#bidder ul li.place { text-align: center; }
 
+#listener p { font-size: 18px; line-height: 24px; }
+
