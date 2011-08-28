@@ -4,8 +4,7 @@ var Db = require('mongodb').Db,
 
 module.exports = function() {
 
-  var self = this,
-      isAuthed = false;
+  var isAuthed = false;
 
   var db = new Db('knockoutradio', new Server('staff.mongohq.com', 10002, {auto_reconnect: true}), {native_parser:false});
 
@@ -22,6 +21,7 @@ module.exports = function() {
 
   return {
     getPoints: function(user_id, cb) {
+      var self = this;
       auth( function() {
         db.collection('points', function(err, col) {
           if(err) console.log(err);
@@ -31,13 +31,11 @@ module.exports = function() {
           });
 
           cursor.toArray(function(err, docs) {
-            if(docs.length === 0) cb(null);
-            var points = docs[0].points;
-            if(points <= 0) {
+            if(docs.length == 0 || docs[0].points <= 0) {
               self.adjustPoints(user_id, 100);
               cb(100);
             } else {
-              cb(points);
+              cb(docs[0].points);
             }
           });
         })
