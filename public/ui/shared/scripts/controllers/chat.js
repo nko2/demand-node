@@ -16,7 +16,7 @@ var ChatController = Fidel.ViewController.extend({
 		return '<li><span class="user">'+name+'</span> : '+message+'</li>';
 	},
 	loadChat: function(data) {
-		console.log('load chat', data);
+		//console.log('load chat', data);
 		var html = [];
 		for (var i = 0, c = data.length; i < c; i++) {
 			var msg = data[i];
@@ -31,7 +31,7 @@ var ChatController = Fidel.ViewController.extend({
 		this.onMessageReceived(window.firstName, txt);
 	},
 	onMessageReceived: function(name, message) {
-		console.log("new chat message", message);
+		//console.log("new chat message", message);
 		this.find('ul').append(this.formatMessage(name, message));
 		var chatContainer = $('.chatContainer')[0];
 		chatContainer.scrollTop = chatContainer.scrollHeight;

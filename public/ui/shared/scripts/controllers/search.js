@@ -9,7 +9,7 @@ var SearchController = Fidel.ViewController.extend ({
     var self = this,
         query = this.searchBox.val();
     if (e.keyCode == 13) {
-      console.log('searching')
+      // console.log('searching')
       services.rdio.search(query, function(data){
         self.results(data);
       });
@@ -18,7 +18,7 @@ var SearchController = Fidel.ViewController.extend ({
   results: function(data){
     var results = data.results;
     this.resultsNode.html('');
-    console.log(data);
+    // console.log(data);
     if(results.length == 0) {
         this.resultsNode.append('<li><span>Sorry, brah. Stairway to heaven is nigh. Please find another track.</span></li>')
     } else {

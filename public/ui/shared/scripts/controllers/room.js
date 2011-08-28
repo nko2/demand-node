@@ -38,18 +38,18 @@ var RoomController = Fidel.ViewController.extend({
   },
   djPlayedTrack: function(trackKey) {
     if (!this.isDJ) {
-      console.log("dj played track", trackKey);
+      //console.log("dj played track", trackKey);
       this.playTrack(trackKey);
     }
   },
   setDJ: function(userId) {
-    console.log("set dj", userId);
+    //console.log("set dj", userId);
     if(window.userId != userId) {
       this.isDJ = false;
       return;
     }
 
-    console.log("set as DJ");
+    // console.log("set as DJ");
     this.isDJ = true;
     this.playTrack(this.selectedTrack);
 
@@ -59,7 +59,7 @@ var RoomController = Fidel.ViewController.extend({
     $('#dj').show('block');
   },
   unsetDJ: function() {
-    console.log('unsetting dj');
+    // console.log('unsetting dj');
     this.isDJ = false;
     $('#bidder').show('block');
     $('#listener').show('block');
@@ -72,7 +72,7 @@ var RoomController = Fidel.ViewController.extend({
     this.selectedTrack = trackKey;
     var self = this;
     services.rdio.getTrackInfo(trackKey, function(data) {
-      console.log(data);
+      // console.log(data);
       var tmp = $("#tmpSelectedTrack").html();
       var html = str.template(tmp, { track: data });
       self.find("#selectedTrack").html(html);
@@ -81,7 +81,7 @@ var RoomController = Fidel.ViewController.extend({
   },
   playTrackAction: function(e) {
     var trackKey = e.target.getAttribute('data-trackkey');
-    console.log(trackKey);
+    // console.log(trackKey);
     this.playTrack(trackKey);
   },
   playTrack: function(trackKey) {
@@ -90,7 +90,7 @@ var RoomController = Fidel.ViewController.extend({
       this.socket.emit('playTrack', trackKey);
     this.player.play(trackKey);
     services.rdio.getTrackInfo(trackKey, function(data) {
-      console.log(data);
+      // console.log(data);
       var tmp = $("#tmpNowPlaying").html();
       var html = str.template(tmp, { track: data });
       self.find("#nowPlaying").html(html);
@@ -121,11 +121,11 @@ var RoomController = Fidel.ViewController.extend({
     $('.topBid').html(total);
   },
   updatePoints: function(points) {
-    console.log('update points', points);
+    // console.log('update points', points);
     $('.points').html(points);
   },
   updateVotes: function(votes) {
-    console.log('updating score', votes);
+    // console.log('updating score', votes);
     $('.score').html(votes);
   },
   voteUp: function(e) {

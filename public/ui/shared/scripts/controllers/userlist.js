@@ -9,7 +9,7 @@ var UserListController = Fidel.ViewController.extend({
 		return '<li class="user" data-socketid="'+socketId+'">'+name+'</li>';
 	},
 	loadUsers: function(data) {
-		console.log('load users', data);
+		// console.log('load users', data);
 		var html = [];
 		for (var socketId in data) {
 			html.push(this.format(socketId, data[socketId]));

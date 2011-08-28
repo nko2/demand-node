@@ -38,23 +38,23 @@ var Player = Fidel.Class.extend({
   },
   _ready: function() {
     this.player = $("#"+this.playerId)[0];
-    console.log("ready", this);
+    //console.log("ready", this);
     this.trigger('ready');
     this._initSocket();
   },
   _playStateChanged: function(state) {
-    console.log("state", state);
+    //console.log("state", state);
     if(this.prevState!==2 && state ==2) {
       window.room.trigger('songEnded');
     }
     this.prevState = state;
   },
   pause: function() { 
-    console.log("pause");
+    //console.log("pause");
     this.player.rdio_pause();
   },
   play: function(key) {
-    console.log("play", key);
+    //console.log("play", key);
     //this.player.rdio_setVolume(0); //TODO: remove later
     this.player.rdio_play(key);
   }
