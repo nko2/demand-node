@@ -82,6 +82,6 @@ h2 { font-size: 26px; font-weight: bold; }
 	.Rooms .users { float: right; }
 
 .band-info { /*position: absolute; left: 60px; top: 5px; width: 370px;*/ }
-	.band-info p { line-height: 50px; font-size: 20px; width: 370px; overflow: hidden; white-space: nowrap; display: block; }
+	.band-info p { line-height: 50px; font-size: 20px; width: 370px; white-space: nowrap; display: block; }
 
 		#album-image { float: left; margin-right: 10px; }
