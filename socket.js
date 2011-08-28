@@ -93,11 +93,10 @@ module.exports = function(app, rooms, rdio, host) {
     });
 
     var setDJ = function() {
-      console.log("set dj");
       socket.get('room', function(error, roomName) {
         var room = rooms.get(roomName);
         
-        socket.broadcast.to(roomName).emit('unsetDJ');
+        //socket.broadcast.to(roomName).emit('unsetDJ');
         socket.emit('unsetDJ');
         socket.broadcast.to(roomName).emit('resetBid');
         socket.emit('resetBid');
@@ -105,6 +104,7 @@ module.exports = function(app, rooms, rdio, host) {
         var topBidAmount = -1,
             topBidUser = '';
 
+        console.log(room.bids);
         for(var bid in room.bids) {
           if(room.bids[bid] > topBidAmount) {
             topBidAmount = room.bids[bid];
@@ -115,8 +115,9 @@ module.exports = function(app, rooms, rdio, host) {
         room.currentDJ = topBidUser;
         room.wonBid = topBidAmount;
         console.log(topBidUser);
-        socket.broadcast.emit('setDJ', topBidUser);
-        socket.emit('setDJ', topBidUser);
+        socket.broadcast.to(roomName).emit('setDJ', topBidUser);
+        console.log("set dj "+topBidUser);
+        //socket.emit('setDJ', topBidUser);
 
         room.bidTotal = 0;
         room.usersBid = 0;
