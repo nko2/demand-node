@@ -94,7 +94,7 @@ module.exports = function(app, rooms, rdio, host) {
         socket.to(roomName).emit('unsetDJ');
         socket.to(roomName).emit('resetBid');
 
-        var topBidAmount = 0,
+        var topBidAmount = -1,
             topBidUser = '';
 
         for(var bid in room.bids) {
@@ -119,7 +119,7 @@ module.exports = function(app, rooms, rdio, host) {
       socket.get('room', function(error, roomName) {
         var clients = io.sockets.clients(roomName);
         var room = rooms.get(roomName);
-        room.points[socket.id] += (room.wonBid*2)-10;
+        room.points[socket.id] += (room.wonBid === 0) ? (room.wonBid*2)-10 : 0;
 
         console.log('song end, awarding cake')
 

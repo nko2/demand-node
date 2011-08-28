@@ -100,7 +100,7 @@ var RoomController = Fidel.ViewController.extend({
     e.preventDefault();
     var bidInput = $('.bidAmount')[0],
         bidAmount = bidInput.value;
-    if(bidAmount < 1) return; //NOPE.AVI
+    if(bidAmount < 0) return; //NOPE.AVI
 
     this.socket.emit('placeBid', bidAmount);
 
