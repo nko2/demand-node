@@ -35,7 +35,7 @@ module.exports = function(app, rooms, rdio, host) {
 
       for(var i = clients.length; i--;) {
         var client = clients[i];
-        console.log(client.id)
+        console.log(client.id);
         client.emit('updatePoints', room.points[client.id]);
       }
 
@@ -79,8 +79,14 @@ module.exports = function(app, rooms, rdio, host) {
           room.bids[userId] = bidAmount;
 
           //TODO: check if all users bid, if true, setDJ
-          if (room.usersBid >= (room.userCount - room.guestCount)/2) {
-            setDJ();
+          if (!room.currentTrack) {
+            var userStreamCount = (room.userCount - room.guestCount);
+            if (userStreamCount == 2) {//if only two users, both need to bid
+              if (userStreamCount == room.usersBid)                 
+                setDJ();
+            } else if (room.usersBid >= userStreamCount/2) {
+              setDJ();
+            }
           }
         });
 
