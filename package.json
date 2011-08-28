@@ -10,7 +10,6 @@
     , "socket.io": ">= x.x.x"
     , "connect-redis": ">= x.x.x"
     , "mongodb": ">= x.x.x"
-    , "now": ">= x.x.x"
     , "resistance": ">= x.x.x"
   }
 }

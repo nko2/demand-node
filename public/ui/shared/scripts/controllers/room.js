@@ -10,20 +10,16 @@ var RoomController = Fidel.ViewController.extend({
     this.player = new Player(this.playbackToken);
     this.player.on('ready', this.proxy(this.onPlayerReady));
 
-    now.ready(this.proxy(this.onNowReady()));
-  },
-  onNowReady: function() {
-    console.log("now ready");
-    var self = this;
-    setTimeout(function() { //TODO: nowjs blows - need to look into this
-      console.log("joined room: "+window.room);
-      now.joinRoom(window.room);
-      now.djPlayedTrack = self.proxy(self.djPlayedTrack); 
-      now.setDJ = self.proxy(self.setDJ);
-    }, 2000);
   },
   onPlayerReady: function() {
     this._playerReady = true;
+    this.initSocket();
+  },
+  initSocket: function() {
+    this.socket = io.connect('http://dev.crunchtune.com');
+    this.socket.on('setDJ', this.proxy(this.setDJ));
+    this.socket.on('djPlayedTrack', this.proxy(this.djPlayedTrack));
+    this.socket.emit('join', this.room);
   },
   djPlayedTrack: function(trackKey) {
     if (!this.isDJ) {
@@ -54,7 +50,7 @@ var RoomController = Fidel.ViewController.extend({
   playTrack: function(trackKey) {
     var self = this;
     if (this.isDJ)
-      now.playTrack(this.room, trackKey);
+      this.socket.emit('playTrack', this.room, trackKey);
     this.player.play(trackKey);
     services.rdio.getTrackInfo(trackKey, function(data) {
       console.log(data);

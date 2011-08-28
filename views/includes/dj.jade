@@ -5,5 +5,5 @@ ol#playlist.Module.FLC
   li(data-trackkey='{!= track.key !}')
     span.play
     span.title {!= track.artist !} - {!= track.name !}
-    span.time {!= track.duration !}
+    span.time {!= utils.formatTime(track.duration) !}
   {! } !}
