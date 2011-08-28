@@ -70,7 +70,7 @@ var RoomController = Fidel.ViewController.extend({
       console.log(data);
       var tmp = $("#tmpSelectedTrack").html();
       var html = str.template(tmp, { track: data });
-      self.selectedTrackNode.html(html);
+      self.find("#selectedTrack").html(html);
     });
   },
   playTrackAction: function(e) {
