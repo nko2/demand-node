@@ -16,7 +16,7 @@ var RoomController = Fidel.ViewController.extend({
     this.initSocket();
   },
   initSocket: function() {
-    this.socket = io.connect('http://dev.crunchtune.com'); //TODO
+    this.socket = io.connect('http://'+document.location.hostname); //TODO
     this.chat = new ChatController({ el: this.find("#chat"), socket: this.socket });
     this.userList = new UserListController({ el: this.find("#userlist"), socket: this.socket });
     this.socket.on('setDJ', this.proxy(this.setDJ));
