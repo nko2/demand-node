@@ -114,5 +114,6 @@ var RoomController = Fidel.ViewController.extend({
   },
   updatePoints: function(points) {
     console.log('update points', points);
+    $('.points').html(points);
   }
 });

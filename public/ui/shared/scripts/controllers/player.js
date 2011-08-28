@@ -4,6 +4,7 @@ var Player = Fidel.Class.extend({
     this.playbackToken = token;
     this.playerId = "rdioPlayer";
     this._initFPlayer();
+    this.prevState = 2;
   },
   _initFPlayer: function() {
     var self = this;

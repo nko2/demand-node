@@ -32,6 +32,13 @@ module.exports = function(app, rooms, rdio, host) {
       if (room.chatMessages)
         socket.emit('loadChat', room.chatMessages);
 
+
+      for(var i = clients.length; i--;) {
+        var client = clients[i];
+        console.log(client.id)
+        client.emit('updatePoints', room.points[client.id]);
+      }
+
     });
 
     socket.on('playTrack', function(trackKey) {
