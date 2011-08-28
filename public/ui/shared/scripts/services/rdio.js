@@ -21,6 +21,11 @@ services.rdio = function() {
       makeRequest('get?keys='+key, function(result) {
         callback(result[key]);
       });
+    },
+    search: function(query, callback) {
+      makeRequest('search?q='+encodeURIComponent(query), function(result) {
+        callback(result);
+      });
     }
   };
 }();
