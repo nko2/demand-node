@@ -39,13 +39,20 @@ h2 { font-size: 26px; font-weight: bold; }
 
 .create input { border: none; width: 300px; height: 40px; line-height: 20px; }
 
+#nowPlaying, #selectedTrack { display: none; padding: 10px; background: rgba(255,255,255,.9); }
+	#nowPlaying .left, #selectedTrack .left { display: inline; float: left; }
+		#nowPlaying .left img, #selectedTrack .left img { width: 100px; height: 100px; }
+	#nowPlaying .right, #selectedTrack .right { float: right; width: 598px; text-align: right; background: transparent; }
+		#nowPlaying .right ul, #nowPlaying .right ul li, #selectedTrack .right ul, #selctedTrack .right ul li { background: transparent; }
+		#nowPlaying ul li, #selectedTrack ul li { padding: 7px 0; border: none; }
+
 #playlist { width: 720px; }
 	#playlist li span.play { visibility: hidden; position: relative; display: inline-block; top: 10px; left: -28px; width: 41px; height: 41px; background: url(../images/play.png) no-repeat 0 0; cursor: pointer; }
 	#playlist li:hover span.play { visibility: visible; }
 	#playlist li span.title { display: inline-block; max-width: 382px; word-wrap: break-word; }
 	#playlist li span.time { float: right; padding-right: 20px; }
 
-#nowPlaying, #selectedTrack, #chat, #userlist, #bidder { float: right; width: 220px; }
+	#chat, #userlist, #bidder { float: right; width: 220px; }
 	#chat input { width: 200px; padding: 6px 10px; border: none; }
 	#chat ul { border: 1px solid #DDE0E5; }
 		#chat ul li { padding: 6px 4px; text-align: left; }
@@ -54,21 +61,19 @@ h2 { font-size: 26px; font-weight: bold; }
 
 #search { float: none; margin-top: 10px; }
 	#search input { width: 674px; }
-	#search ul { margin-top: -3px; }
+	#search ul { margin-top: -3px; background: transparent; }
 		#search ul li { padding: 6px 10px; }
 
 #userlist ul li { padding: 6px; }
 
-#nowPlaying, #selectedTrack { text-align: center; }
-	#nowPlaying ul li, #selectedTrack ul li{ padding: 10px; }
-
 #bidder ul li { padding: 6px; }
 	#bidder ul li.current { padding: 6px 0; text-align: center; }
 	#bidder ul li.bid input { width: 205px; text-align: left; }
-	#bidder ul li.place { text-align: center; }
+	#bidder ul li.place, #bidder ul li.count { text-align: center; }
 
-#listener { padding: 20px; background: #fff; background: rgba(255,255,255,.9); border-radius: 10px; }
+#listener { padding: 20px; background: rgba(255,255,255,.9); }
 
-.Rooms li { padding: 10px; }
-.Rooms a { float: left; }
-.Rooms .users { float: right; }
+.Rooms { }
+	.Rooms li { padding: 10px; }
+	.Rooms a { float: left; }
+	.Rooms .users { float: right; }

@@ -72,6 +72,7 @@ var RoomController = Fidel.ViewController.extend({
       var tmp = $("#tmpSelectedTrack").html();
       var html = str.template(tmp, { track: data });
       self.find("#selectedTrack").html(html);
+      self.find("#selectedTrack").show('block');
     });
   },
   playTrackAction: function(e) {
@@ -89,6 +90,7 @@ var RoomController = Fidel.ViewController.extend({
       var tmp = $("#tmpNowPlaying").html();
       var html = str.template(tmp, { track: data });
       self.find("#nowPlaying").html(html);
+      self.find("#nowPlaying").show('block');
     });
   },
   placeBid: function(e) {

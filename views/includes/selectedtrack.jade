@@ -1,9 +1,11 @@
-ul.UTL
-	li
-		span Selected Track
-	li
+div.left
 		img(src="{!= track.icon !}")
-	li
-		div {!= track.artist !}
-	li
-		div {!= track.name !}
+
+div.right
+	ul.UTL
+		li
+			span Selected Track
+		li
+			div {!= track.artist !}
+		li
+			div {!= track.name !}
