@@ -1,3 +1,5 @@
+var services = require('./services.js')();
+
 module.exports = function(app, rooms, rdio, host) {
 
   var io = require('socket.io').listen(app);
@@ -36,6 +38,18 @@ module.exports = function(app, rooms, rdio, host) {
         room.currentTrack = trackKey;
         console.log("current track for room: "+trackKey);
         socket.broadcast.to(roomName).emit('djPlayedTrack', trackKey);
+      });
+    });
+
+    socket.on('placeBid', function(bidAmount, roomName, user_id) {
+      socket.get('room', function(error, roomName) {
+        var room = rooms.get(roomName);
+        room.bidTotal += bidAmount;
+
+        console.log("current bid total for room: "+room.bidTotal);
+        socket.broadcast.to(roomName).emit('bidPlaced', room.bidTotal);
+
+
       });
     });
 

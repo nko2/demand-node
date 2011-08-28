@@ -15,7 +15,8 @@ Rooms.prototype.create = function(roomName, slug) {
 		chatMessages: [],
 		users: {},
 		userCount: 0,
-		currentTrack: ''
+		currentTrack: '',
+		bidTotal: 0
 	};
 };
 Rooms.prototype.getFromSlug = function(slug) {
