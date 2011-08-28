@@ -23,11 +23,13 @@ html
   body
     div#container.FLC
       header#header
-
         nav.primary.Inline
           dl.UTL.Heading4.Chunk
             dt.Heading1 Knockout Radio
-            dd.FLC Room Name Goes Here
+            - if(typeof room === 'undefined')
+              dd.FLC Welcome to Knockout Radio
+            - else
+              dd.FLC Welcome to #{room.name}
         nav.primary.Inline
           ul.Plain.UTL.Chunk
             - if(session.oauth_access_token !=null)
