@@ -17,7 +17,8 @@ Rooms.prototype.create = function(roomName, slug) {
 		userCount: 0,
 		currentTrack: '',
 		bidTotal: 0,
-		bids: {}
+		bids: {},
+		currentDJ: ''
 	};
 };
 Rooms.prototype.getFromSlug = function(slug) {

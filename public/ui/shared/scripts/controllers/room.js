@@ -9,7 +9,9 @@ var RoomController = Fidel.ViewController.extend({
     this._playerReady = false;
     this.player = new Player(this.playbackToken);
     this.player.on('ready', this.proxy(this.onPlayerReady));
-
+    this.on('songEnded', function(e) {
+      self.socket.emit('songEnded', self.room, window.user_id);
+    });
   },
   onPlayerReady: function() {
     this._playerReady = true;
@@ -21,9 +23,10 @@ var RoomController = Fidel.ViewController.extend({
     this.userList = new UserListController({ el: this.find("#userlist"), socket: this.socket });
     this.socket.on('setDJ', this.proxy(this.setDJ));
     this.socket.on('djPlayedTrack', this.proxy(this.djPlayedTrack));
-    this.socket.emit('join', this.room, window.firstName);
+    this.socket.emit('join', this.room, window.firstName, window.user_id);
     this.socket.on('bidPlaced', this.proxy(this.updateBid));
     this.socket.on('resetBid', this.proxy(this.resetBid));
+    this.socket.on('unsetDJ', this.proxy(this.unsetDJ));
   },
   djPlayedTrack: function(trackKey) {
     if (!this.isDJ) {
@@ -31,10 +34,17 @@ var RoomController = Fidel.ViewController.extend({
       this.playTrack(trackKey);
     }
   },
-  setDJ: function() {
+  setDJ: function(user_id) {
+    if(window.user_id != user_id) return false; //NOPE
+
     console.log("set as DJ");
     this.isDJ = true;
     this.showDJ();
+  },
+  unsetDJ: function() {
+    console.log('unsetting dj');
+    this.isDJ = false;
+    this.hideDJ();
   },
   showDJ: function() {
     var self = this;
@@ -45,6 +55,9 @@ var RoomController = Fidel.ViewController.extend({
       self.find("#dj").html(html);
       self.delegateActions();
     });
+  },
+  hideDJ: function() {
+    
   },
   playTrackAction: function(e) {
     var trackKey = e.target.getAttribute('data-trackkey');
@@ -73,8 +86,6 @@ var RoomController = Fidel.ViewController.extend({
 
     bidInput.disabled = true;
     e.target.disabled = true;
-
-    this.resetBid();
   },
   resetBid: function() {
     $('.bidAmount')[0].disabled = false;

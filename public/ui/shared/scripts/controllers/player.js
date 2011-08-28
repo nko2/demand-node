@@ -43,6 +43,9 @@ var Player = Fidel.Class.extend({
   },
   _playStateChanged: function(state) {
     console.log("state", state);
+    if(state==0) {
+      window.room.trigger('songEnded');
+    }
   },
   pause: function() { 
     console.log("pause");

@@ -7,11 +7,12 @@ module.exports = function(app, rooms, rdio, host) {
   io.sockets.on('connection', function(socket) {
 
 
-    socket.on('join', function(roomName, firstName) {
+    socket.on('join', function(roomName, firstName, user_id) {
       console.log("user joined room: "+roomName);
       socket.join(roomName);
       socket.set('room', roomName);
       socket.set('name', firstName);
+      socket.set('user_id', user_id);
       var clients = io.sockets.clients(roomName);
       console.log("users in room "+roomName+": "+clients.length);
 
@@ -20,7 +21,8 @@ module.exports = function(app, rooms, rdio, host) {
       room.userCount++;
 
       if (clients.length == 1) { //make dj
-        socket.emit('setDJ');
+        room.currentDJ = user_id;
+        socket.emit('setDJ', user_id);
       } else { 
         if (room.currentTrack)
           socket.emit('djPlayedTrack', room.currentTrack);
@@ -53,6 +55,28 @@ module.exports = function(app, rooms, rdio, host) {
         socket.to(roomName).emit('bidPlaced', room.bidTotal);
 
         room.bids[user_id] = bidAmount;
+
+      });
+    });
+
+    socket.on('songEnded', function(roomName, user_id) {
+      socket.get('room', function(error, roomName) {
+        var room = rooms.get(roomName);
+        
+        socket.to(roomName).emit('unsetDJ');
+
+        var topBidAmount = 0,
+            topBidUser = '';
+
+        for(var bid in room.bids) {
+          if(room.bids[bid] > topBidAmount) {
+            topBidAmount = room.bids[bid];
+            topBidUser = bid;
+          }
+        }
+
+        room.currentDJ = topBidUser;
+        socket.emit('setDJ', topBidUser);
 
       });
     });

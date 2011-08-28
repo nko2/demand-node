@@ -1,1 +1,1 @@
-new RoomController({ el:$('#content'), playbackToken: window.playbackToken, room: window.roomSlug });
+window.room = new RoomController({ el:$('#content'), playbackToken: window.playbackToken, room: window.roomSlug });
