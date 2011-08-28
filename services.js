@@ -31,7 +31,13 @@ module.exports = function() {
           });
 
           cursor.toArray(function(err, docs) {
-            cb(docs[0].points);
+            var points = docs[0].points;
+            if(points <= 0) {
+              self.adjustPoints(user_id, 100);
+              cb(100);
+            } else {
+              cb(points);
+            }
           });
         })
       })
