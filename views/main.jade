@@ -4,10 +4,13 @@
 - scripts.push("/ui/shared/scripts/external/str.js")
 - scripts.push("/ui/shared/scripts/services/rdio.js")
 - scripts.push("/ui/shared/scripts/controllers/player.js")
+- scripts.push("/ui/shared/scripts/controllers/chat.js")
 - scripts.push("/ui/shared/scripts/controllers/room.js")
 - scripts.push("/ui/shared/scripts/pages/room.js")
 
 div#rdioPlayer
+div#chat
+  include includes/chat
 div#nowPlaying
 div#dj
 
@@ -18,5 +21,6 @@ script#tmpNowPlaying(type="text/template")
 
 script
   window.playbackToken = "#{playbackToken}";
+  window.firstName = "#{user.firstName}";
   //tmp vars
   window.room = 'so loud it makes yer ears bleed';

@@ -16,10 +16,15 @@ var RoomController = Fidel.ViewController.extend({
     this.initSocket();
   },
   initSocket: function() {
-    this.socket = io.connect('http://dev.crunchtune.com');
+    this.socket = io.connect('http://dev.crunchtune.com'); //TODO
+    this.initChat();
     this.socket.on('setDJ', this.proxy(this.setDJ));
     this.socket.on('djPlayedTrack', this.proxy(this.djPlayedTrack));
     this.socket.emit('join', this.room);
+    
+  },
+  initChat: function() {
+    this.chatController = new ChatController({ el: this.find("#chat"), socket: this.socket });
   },
   djPlayedTrack: function(trackKey) {
     if (!this.isDJ) {
