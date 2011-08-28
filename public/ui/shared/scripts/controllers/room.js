@@ -17,14 +17,12 @@ var RoomController = Fidel.ViewController.extend({
   },
   initSocket: function() {
     this.socket = io.connect('http://dev.crunchtune.com'); //TODO
-    this.initChat();
+    this.chat = new ChatController({ el: this.find("#chat"), socket: this.socket });
+    this.userList = new UserListController({ el: this.find("#userlist"), socket: this.socket });
     this.socket.on('setDJ', this.proxy(this.setDJ));
     this.socket.on('djPlayedTrack', this.proxy(this.djPlayedTrack));
-    this.socket.emit('join', this.room);
+    this.socket.emit('join', this.room, window.firstName);
     
-  },
-  initChat: function() {
-    this.chatController = new ChatController({ el: this.find("#chat"), socket: this.socket });
   },
   djPlayedTrack: function(trackKey) {
     if (!this.isDJ) {
