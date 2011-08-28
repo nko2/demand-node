@@ -61,7 +61,7 @@ h2 { font-size: 26px; font-weight: bold; }
 
 #search { float: none; margin-top: 10px; }
 	#search input { width: 674px; }
-	#search ul { margin-top: -3px; }
+	#search ul { margin-top: -3px; background: transparent; }
 		#search ul li { padding: 6px 10px; }
 
 #userlist ul li { padding: 6px; }
@@ -69,7 +69,7 @@ h2 { font-size: 26px; font-weight: bold; }
 #bidder ul li { padding: 6px; }
 	#bidder ul li.current { padding: 6px 0; text-align: center; }
 	#bidder ul li.bid input { width: 205px; text-align: left; }
-	#bidder ul li.place { text-align: center; }
+	#bidder ul li.place, #bidder ul li.count { text-align: center; }
 
 #listener { padding: 20px; background: rgba(255,255,255,.9); }
 
