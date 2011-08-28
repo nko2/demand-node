@@ -119,7 +119,7 @@ module.exports = function(app, rooms, rdio, host) {
       socket.get('room', function(error, roomName) {
         var clients = io.sockets.clients(roomName);
         var room = rooms.get(roomName);
-        room.points[socket.id] += (room.wonBid === 0) ? (room.wonBid*2)-10 : 0;
+        room.points[socket.id] += (room.wonBid !== 0) ? (room.wonBid*2)-10 : 0;
 
         console.log('song end, awarding cake')
 
@@ -129,6 +129,29 @@ module.exports = function(app, rooms, rdio, host) {
           var client = clients[i];
           room.points[client.id] += 10;
           client.emit('updatePoints', room.points[client.id]);
+        }
+      });
+    });
+
+    socket.on('vote', function(direction) {
+      socket.get('room', function(error, roomName) {
+        var room = rooms.get(roomName);
+        var clients = io.sockets.clients(roomName);
+        
+        room.score += direction;
+
+        var negativeThreshold = ~((client.length/2)-1);
+        if(negativeThreshold > 0) negativeThreshold = 0;
+        if(room.score <= negativeThreshold) {
+          setDJ();
+
+          room.points[room.currentDJ] -= 10;
+
+          for(var i = clients.length; i--;) {
+            var client = clients[i];
+            room.points[client.id] += 10;
+            client.emit('updatePoints', room.points[client.id]);
+          }
         }
       });
     });
