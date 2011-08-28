@@ -10,6 +10,11 @@
 - scripts.push("/ui/shared/scripts/controllers/search.js")
 - scripts.push("/ui/shared/scripts/pages/room.js")
 
+
+div#bidder
+  include includes/bidder
+
+
 div#rdioPlayer
 div#chat
   include includes/chat
@@ -29,5 +34,5 @@ script#tmpNowPlaying(type="text/template")
 script
   window.playbackToken = "#{playbackToken}";
   window.firstName = "#{user.firstName}";
-  //tmp vars
-  window.room = 'so loud it makes yer ears bleed';
+  window.roomName = '#{room.name}';
+  window.roomSlug = '#{room.slug}';

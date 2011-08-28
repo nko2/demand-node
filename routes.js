@@ -2,7 +2,7 @@ var url = require('url'),
     R = require("resistance").R,
     services = require('./services.js')();
 
-module.exports = function(app, rdio, host){
+module.exports = function(app, rooms, rdio, host){
 
   app.get ('/oauth/login', function(req, res, params) {
     if(!req.session.oauth_access_token) {
@@ -30,9 +30,9 @@ module.exports = function(app, rdio, host){
       function(error, oauth_access_token, oauth_access_token_secret, results) {
         req.session.oauth_access_token = oauth_access_token;
         req.session.oauth_access_token_secret = oauth_access_token_secret;
-        res.redirect("/");
+        res.redirect("/rooms/");
       }
-    )
+    );
   });
 
   app.get('/guest', function(req, res) {
@@ -48,9 +48,23 @@ module.exports = function(app, rdio, host){
     delete req.session.isGuest
     res.redirect('/')
   })
+  app.get('/', function(req, res) {
+    if(req.session.oauth_access_token || req.session.isGuest) {
+      res.redirect("/rooms/");
+    } else  {
+      res.render('index', {
+        title: 'Knockout Radio',
+        isGuest: false
+      });
+    }
+  });
 
-  app.get('/', function(req, res){
-
+  app.get('/rooms/:roomSlug', function(req, res){
+    var slug = req.params.roomSlug;
+    console.log(slug);
+    var room = rooms.getFromSlug(slug);
+    if (!room)
+      res.redirect('/rooms/')
     if(req.session.oauth_access_token || req.session.isGuest) {
 
       R.parallel([
@@ -106,16 +120,48 @@ module.exports = function(app, rdio, host){
             title: 'Knockout Radio',
             isGuest: req.session.isGuest,
             user: user,
-            points: points
+            points: points,
+            room: room
           });
         });
       });
 
     } else {
-      res.render('index', {
-        title: 'Knockout Radio',
-        isGuest: false
-      });
+      res.redirect('/');
     }
+  });
+
+  app.get('/rooms/', function(req, res) {
+
+    var user;
+    var render = function() {
+      res.render('rooms', {
+        title: 'Rooms | Knockout Radio',
+        rooms: rooms,
+        isGuest: req.session.isGuest,
+        user: user
+      });
+    };
+    if (req.session.isGuest) {
+      user = { firstName: 'Guest' };
+      render();
+    } else {
+      rdio.api(
+        req.session.oauth_access_token,
+        req.session.oauth_access_token_secret,
+        { method: 'currentUser' },
+        function(err, data, response) {
+          var user = JSON.parse(data).result;
+          render();
+        }
+      );
+    }
+  });
+
+  app.get('/create', function(req, res) {
+    var roomName = req.query.name;
+    //TODO: should append a number until a unique room?
+    var room = rooms.get(roomName);
+    res.redirect('/rooms/'+room.slug);
   });
 };

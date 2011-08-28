@@ -1,17 +1,6 @@
-module.exports = function(app, rdio, host) {
+module.exports = function(app, rooms, rdio, host) {
 
   var io = require('socket.io').listen(app);
-  var _rooms = {};
-  var getRoom = function(roomName) {
-    if (!_rooms[roomName]) {
-      _rooms[roomName] = {
-        chatMessages: [],
-        users: {},
-        currentTrack: ''
-      };
-    }
-    return _rooms[roomName];
-  };
 
   io.sockets.on('connection', function(socket) {
 
@@ -24,8 +13,9 @@ module.exports = function(app, rdio, host) {
       var clients = io.sockets.clients(roomName);
       console.log("users in room "+roomName+": "+clients.length);
 
-      var room = getRoom(roomName);
+      var room = rooms.get(roomName);
       room.users[socket.id] = firstName;
+      room.userCount++;
 
       if (clients.length == 1) { //make dj
         socket.emit('setDJ');
@@ -42,7 +32,7 @@ module.exports = function(app, rdio, host) {
 
     socket.on('playTrack', function(trackKey) {
       socket.get('room', function(error, roomName) {
-        var room = getRoom(roomName);
+        var room = rooms.get(roomName);
         room.currentTrack = trackKey;
         console.log("current track for room: "+trackKey);
         socket.broadcast.to(roomName).emit('djPlayedTrack', trackKey);
@@ -51,7 +41,7 @@ module.exports = function(app, rdio, host) {
 
     socket.on('sendMessage', function(name, message) {
       socket.get('room', function(error, roomName) {
-        var room = getRoom(roomName);
+        var room = rooms.get(roomName);
         room.chatMessages.push({ name: name, message: message });
         socket.broadcast.to(roomName).emit('messageReceived', name, message);
       });
@@ -59,10 +49,13 @@ module.exports = function(app, rdio, host) {
     socket.on('disconnect', function() {
       console.log("disconnect");
       socket.get('room', function(err, roomName) {
-        console.log("user left room: "+roomName);
-        var room = getRoom(roomName); 
-        delete room.users[socket.id];
-        socket.broadcast.to(roomName).emit('userLeave', socket.id);
+        if (roomName) {
+          console.log("user left room: "+roomName);
+          var room = rooms.get(roomName); 
+          delete room.users[socket.id];
+          room.userCount--;
+          socket.broadcast.to(roomName).emit('userLeave', socket.id);
+        }
       });
     });
   });

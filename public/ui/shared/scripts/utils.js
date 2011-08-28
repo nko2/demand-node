@@ -7,7 +7,7 @@ utils = {
     if(time === 0) {
       return '00:00';
     } else {
-      var minutes = this.pad(Math.floor(time / 60)),
+      var minutes = Math.floor(time / 60),
         seconds = this.pad(Math.floor(time-minutes * 60));
       return minutes+':'+seconds;
     }
