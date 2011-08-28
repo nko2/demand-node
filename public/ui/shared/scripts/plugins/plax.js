@@ -72,11 +72,19 @@
     if (new Date().getTime() < lastRender + delay) return;
       lastRender = new Date().getTime();
 
-    var x      = moveable() ? e.rotationRate.beta/3  : e.pageX,
-        y      = moveable() ? e.rotationRate.alpha/3 : e.pageY,
-        hRatio = x/(moveable() ? 360 : docWidth),
-        vRatio = y/(moveable() ? 360 : docHeight),
-        layer, i
+    try{
+      var x      = moveable() ? e.rotationRate.beta/3  : e.pageX,
+          y      = moveable() ? e.rotationRate.alpha/3 : e.pageY,
+          hRatio = x/(moveable() ? 360 : docWidth),
+          vRatio = y/(moveable() ? 360 : docHeight),
+          layer, i
+    } catch(err) {
+      var x      = e.pageX/4,
+          y      = e.pageY/4,
+          hRatio = x/(moveable() ? 360 : docWidth),
+          vRatio = y/(moveable() ? 360 : docHeight),
+          layer, i
+    }
 
     for (i = layers.length; i--;) {
       layer = layers[i]
