@@ -56,11 +56,19 @@ module.exports = function(app, rooms, rdio, host) {
 
           var room = rooms.get(roomName);
 
+          var clients = io.sockets.clients(roomName);
+
           if(userId in room.bids) return false; //double bidding D:
 
           if(room.points[socket.id] < bidAmount) bidAmount = room.points[socket.id];
 
           room.points[socket.id] -= bidAmount;
+
+          for(var i = clients.length; i--;) {
+            var client = clients[i];
+            console.log(client.id)
+            client.emit('updatePoints', room.points[client.id]);
+          }
 
           room.bidTotal = parseInt(room.bidTotal)+parseInt(bidAmount);
           room.usersBid++;
@@ -97,6 +105,7 @@ module.exports = function(app, rooms, rdio, host) {
         }
 
         room.currentDJ = topBidUser;
+        room.wonBid = topBidAmount;
         socket.emit('setDJ', topBidUser);
 
         room.bidTotal = 0;
@@ -110,7 +119,7 @@ module.exports = function(app, rooms, rdio, host) {
       socket.get('room', function(error, roomName) {
         var clients = io.sockets.clients(roomName);
         var room = rooms.get(roomName);
-        room.points[socket.id] += 25;
+        room.points[socket.id] += room.wonBid*2;
 
         console.log('song end, awarding cake')
 
