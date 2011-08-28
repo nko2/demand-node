@@ -140,7 +140,7 @@ module.exports = function(app, rooms, rdio, host){
     }
   });
 
-  app.get('/rooms/', function(req, res) {
+  app.get('/rooms', function(req, res) {
 
     if(!req.session.oauth_access_token && req.session.isGuest == null) {
       res.redirect("/");

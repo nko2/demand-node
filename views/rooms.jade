@@ -4,9 +4,11 @@ div.create.Module.FLC
   input(type='text', data-element='createBox', placeholder="Enter your desired room name here")
   |  
   button(data-action='create').lameButton Create
-ul.Module.FLC
+
+h2 Rooms
+ul.Module.Rooms.FLC
   - for (var slug in rooms.all())
     - var room = rooms.getFromSlug(slug)
-    li
-      a(href="/rooms/#{slug}") Room : #{room.name} 
-      span Users : #{room.userCount} 
+    li.FLC
+      a(href="/rooms/#{slug}") #{room.name} 
+      span.users #{room.userCount} Users
