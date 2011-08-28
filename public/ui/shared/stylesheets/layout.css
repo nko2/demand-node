@@ -8,15 +8,18 @@ body { }
 
 #meta { position: relative; float: left; width: 119px; height: 142px; margin-right: 232px; }
 
+#section { float: left; width: 720px; }
+#aside { float: right; width: 220px; }
+
 .primary { margin-right: 10px; padding-top: 26px; }
 	.primary dl { width: 100%; }
 		.primary dl dt, .primary dl dd { width: auto; height: 52px; margin-right: 20px; padding-left: 20px; line-height: 52px; }
 			.primary dl dt { display: inline; float: left; padding-left: 0; }
-	.primary ul li { width: 200px; text-align: center; }
+	.primary ul li { width: 165px; text-align: center; }
 		.primary ul li.guest { padding-top: 8px; }
 		.primary ul li.authed { padding-top: 14px; }
 
-.social { float: right; padding-top: 21px; }
+.social { float: left; padding-top: 34px; }
 	.social ul { width: 50px; }	
 		.social ul li { display: inline; float: left; width: auto; height: 100%; margin-right: 26px; }
 
@@ -37,7 +40,7 @@ body { }
 	#playlist li span.title { display: inline-block; max-width: 382px; word-wrap: break-word; }
 	#playlist li span.time { float: right; padding-right: 20px; }
 
-#search, #nowPlaying, #chat, #userlist { float: right; width: 220px; }
+#search, #nowPlaying, #chat, #userlist, #bidder { float: right; width: 220px; }
 	#search input, #chat input { width: 200px; padding: 6px 10px; border: none; }
 	#search ul, #chat ul { border: 1px solid #DDE0E5; }
 		#chat ul li { padding: 6px 4px; text-align: left; }
@@ -45,8 +48,13 @@ body { }
 	#search ul { margin-top: -3px; }
 		#search ul li { padding: 6px 10px; }
 
+#userlist ul li { padding: 6px; }
+
 #nowPlaying { text-align: center; }
 	#nowPlaying ul li { padding: 10px; }
 
-#Left { float: left; width: 720px; }
-#Right { float: right; width: 220px; }
+#bidder ul li { padding: 6px; }
+	#bidder ul li.current { padding: 6px 0; text-align: center; }
+	#bidder ul li.bid input { width: 205px; text-align: left; }
+	#bidder ul li.place { text-align: center; }
+
