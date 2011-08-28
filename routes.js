@@ -55,18 +55,23 @@ module.exports = function(app, rdio, host){
 
       R.parallel([
         function(cb) {
-          rdio.api(
-            req.session.oauth_access_token,
-            req.session.oauth_access_token_secret,
-            {
-              method: 'currentUser'
-            },
-            function(err, data, response) {
-              var user = JSON.parse(data).result;
-              console.log(user);
-              cb(user);
-            }
-          );
+          if (req.session.isGuest) {
+            cb({ firstName: 'Guest' });
+          } else {
+            rdio.api(
+              req.session.oauth_access_token,
+              req.session.oauth_access_token_secret,
+              {
+                method: 'currentUser'
+              },
+              function(err, data, response) {
+                console.log(arguments);
+                var user = JSON.parse(data).result;
+                console.log(user);
+                cb(user);
+              }
+            );
+          }
         },
         function(cb) {
           rdio.getPlaybackToken(
