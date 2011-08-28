@@ -43,21 +43,21 @@ body { }
 	#playlist li span.title { display: inline-block; max-width: 382px; word-wrap: break-word; }
 	#playlist li span.time { float: right; padding-right: 20px; }
 
-#nowPlaying, #chat, #userlist, #bidder { float: right; width: 220px; }
+#nowPlaying, #selectedTrack, #chat, #userlist, #bidder { float: right; width: 220px; }
 	#chat input { width: 200px; padding: 6px 10px; border: none; }
 	#chat ul { border: 1px solid #DDE0E5; }
 		#chat ul li { padding: 6px 4px; text-align: left; }
 			#chat ul li span.user { font-weight: bold; }
 
 #search { float: none; margin-top: 10px; }
-	#search input { width: 90% }
+	#search input { width: 674px; }
 	#search ul { margin-top: -3px; }
 		#search ul li { padding: 6px 10px; }
 
 #userlist ul li { padding: 6px; }
 
-#nowPlaying { text-align: center; }
-	#nowPlaying ul li { padding: 10px; }
+#nowPlaying, #selectedTrack { text-align: center; }
+	#nowPlaying ul li, #selectedTrack ul li{ padding: 10px; }
 
 #bidder ul li { padding: 6px; }
 	#bidder ul li.current { padding: 6px 0; text-align: center; }
@@ -66,4 +66,3 @@ body { }
 
 #listener { padding: 20px; background: #fff; background: rgba(255,255,255,.9); border-radius: 10px; }
 	#listener p { font-size: 18px; line-height: 24px; } 
-
