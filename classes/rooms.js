@@ -1,6 +1,7 @@
 var Rooms = function() {
 	this._data = {};
 	this._count = 0;
+	this.get('Free For All');
 };
 Rooms.prototype.makeSlug = function(str) {
 	str = str.toLowerCase();
