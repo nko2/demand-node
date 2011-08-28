@@ -41,14 +41,18 @@ module.exports = function(app, rooms, rdio, host) {
       });
     });
 
-    socket.on('placeBid', function(bidAmount, roomName, user_id) {
+    socket.on('placeBid', function(roomName, user_id, bidAmount) {
       socket.get('room', function(error, roomName) {
         var room = rooms.get(roomName);
-        room.bidTotal += bidAmount;
+
+        if(user_id in room.bids) return false; //double bidding D:
+
+        room.bidTotal = parseInt(room.bidTotal)+parseInt(bidAmount);
 
         console.log("current bid total for room: "+room.bidTotal);
-        socket.broadcast.to(roomName).emit('bidPlaced', room.bidTotal);
+        socket.to(roomName).emit('bidPlaced', room.bidTotal);
 
+        room.bids[user_id] = bidAmount;
 
       });
     });
