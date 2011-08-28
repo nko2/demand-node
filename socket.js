@@ -148,10 +148,11 @@ module.exports = function(app, rooms, rdio, host) {
       socket.get('room', function(error, roomName) {
         var room = rooms.get(roomName);
         var clients = io.sockets.clients(roomName);
+        if(direction !== 1 && direction !== -1) return false; //NOPE
         
         room.score += direction;
 
-        var negativeThreshold = ~((client.length/2)-1);
+        var negativeThreshold = ~((clients.length/2)-1);
         if(negativeThreshold > 0) negativeThreshold = 0;
         if(room.score <= negativeThreshold) {
           //kick them out!
@@ -164,7 +165,7 @@ module.exports = function(app, rooms, rdio, host) {
           }
         }
 
-        socket.to(roomName).emit('updateVotes', room.score);
+        socket.emit('updateVotes', room.score);
       });
     });
 

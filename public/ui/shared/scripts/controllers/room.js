@@ -1,7 +1,9 @@
 var RoomController = Fidel.ViewController.extend({
   events: {
     playTrackAction: 'click ol li .play', //delegateActions won't work here - bug in fidel
-    placeBid: 'click button.bidSubmit'
+    placeBid: 'click button.bidSubmit',
+    voteUp: 'click a.like',
+    voteDown: 'click a.hate'
   },
   init: function() {
     var self = this;
@@ -121,5 +123,13 @@ var RoomController = Fidel.ViewController.extend({
   updateVotes: function(votes) {
     console.log('updating score', votes);
     $('.score').html(votes);
+  },
+  voteUp: function(e) {
+    e.preventDefault();
+    this.socket.emit('vote', 1);
+  },
+  voteDown: function(e) {
+    e.preventDefault();
+    this.socket.emit('vote', -1);
   }
 });
