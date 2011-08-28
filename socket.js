@@ -48,6 +48,7 @@ module.exports = function(app, rooms, rdio, host) {
           if(userId in room.bids) return false; //double bidding D:
 
           room.bidTotal = parseInt(room.bidTotal)+parseInt(bidAmount);
+          room.usersBid++;
 
           console.log("current bid total for room: "+room.bidTotal);
           socket.to(roomName).emit('bidPlaced', room.bidTotal);
@@ -55,6 +56,9 @@ module.exports = function(app, rooms, rdio, host) {
           room.bids[userId] = bidAmount;
 
           //TODO: check if all users bid, if true, setDJ
+          if (room.usersBid == room.userCount) {
+            setDJ();
+          }
         });
 
       });
