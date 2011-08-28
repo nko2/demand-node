@@ -46,13 +46,18 @@ var RoomController = Fidel.ViewController.extend({
     this.playTrack(this.selectedTrack);
 
     $('#bidder').hide();
-    //this.showDJ();
+    $('#listener').hide();
+    $('#selectedTrack').hide();
+    $('#dj').show('block');
   },
   unsetDJ: function() {
     console.log('unsetting dj');
     this.isDJ = false;
-    this.hideDJ();
     $('#bidder').show();
+    $('#listener').show();
+    $('#selectedTrack').show();
+    $('#dj').hide();
+    $('#nowPlaying').hide();
   },
   showDJ: function() {
     var self = this;

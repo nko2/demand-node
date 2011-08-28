@@ -39,7 +39,7 @@ h2 { font-size: 26px; font-weight: bold; }
 
 .create input { border: none; width: 300px; height: 40px; line-height: 20px; }
 
-#nowPlaying, #selectedTrack { display: none; padding: 10px; background: rgba(255,255,255,.9); }
+#nowPlaying, #selectedTrack, #dj { display: none; padding: 10px; background: rgba(255,255,255,.9); }
 	#nowPlaying .left, #selectedTrack .left { display: inline; float: left; }
 		#nowPlaying .left img, #selectedTrack .left img { width: 100px; height: 100px; }
 	#nowPlaying .right, #selectedTrack .right { float: right; width: 598px; text-align: right; background: transparent; }
@@ -73,7 +73,11 @@ h2 { font-size: 26px; font-weight: bold; }
 
 #listener { padding: 20px; background: rgba(255,255,255,.9); }
 
+#dj { width: 700px; }
+	#dj p { font-size: 16px; }
+
 .Rooms { }
 	.Rooms li { padding: 10px; }
 	.Rooms a { float: left; }
 	.Rooms .users { float: right; }
+

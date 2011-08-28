@@ -119,6 +119,7 @@ module.exports = function(app, rooms, rdio, host) {
       socket.get('room', function(error, roomName) {
         var clients = io.sockets.clients(roomName);
         var room = rooms.get(roomName);
+        room.currentTrack = null;
         room.points[socket.id] += (room.wonBid === 0) ? (room.wonBid*2)-10 : 0;
 
         console.log('song end, awarding cake')
