@@ -1,12 +1,12 @@
 - scripts.push("/ui/shared/scripts/controllers/rooms.js")
 
-div.create
-	input(type='text',data-element='createBox')
-	button(data-action='create') Create
-ul
-	- for (var slug in rooms.all())
-		- var room = rooms.getFromSlug(slug)
-		li
-			a(href="/rooms/#{slug}")= room.name
-			span Users: #{room.userCount}
-			span Current Track: #{room.currentTrack}
+div.create.Module.FLC
+  input(type='text', data-element='createBox', placeholder="Enter your desired room name here")
+  button(data-action='create') Create
+ul.Module.FLC
+  - for (var slug in rooms.all())
+    - var room = rooms.getFromSlug(slug)
+    li
+      a(href="/rooms/#{slug}") Room : #{room.name} 
+      span Users : #{room.userCount} 
+      span Current Track: #{room.currentTrack}

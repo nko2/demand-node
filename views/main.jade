@@ -15,21 +15,22 @@ div#bidder
   include includes/bidder
 
 
-div#rdioPlayer
+div#Left
+  div#rdioPlayer
+  div#dj
 
-div#dj
+div#Right
+  div#search.Module
+    input(type='text', placeholder="Add a song to your playlist")
+    ul#results.UTL
 
-div#search.Module
-  input(type='text', placeholder="Add a song to your playlist")
-  ul#results.UTL
+  div#nowPlaying.Module
 
-div#nowPlaying.Module
+  div#userlist.Module
+    include includes/userlist
 
-div#userlist.Module
-  include includes/userlist
-
-div#chat.Module
-  include includes/chat
+  div#chat.Module
+    include includes/chat
 
 script#tmpDJ(type="text/template")
   include includes/dj
