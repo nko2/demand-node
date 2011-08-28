@@ -2,7 +2,8 @@
 
 div.create.Module.FLC
   input(type='text', data-element='createBox', placeholder="Enter your desired room name here")
-  button(data-action='create') Create
+  |  
+  button(data-action='create').lameButton Create
 ul.Module.FLC
   - for (var slug in rooms.all())
     - var room = rooms.getFromSlug(slug)

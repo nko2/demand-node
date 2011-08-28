@@ -109,7 +109,7 @@ ul.Plain { background-color: transparent; }
   padding: 8px 10px;
   text-align: center;
   text-shadow: 0 1px 0 #eee;
-  width: 150px; }
+ }
   .lameButton:hover {
     background-color: #dddddd;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#dddddd), to(#bbbbbb));
