@@ -58,7 +58,7 @@ module.exports = function(app, rooms, rdio, host) {
           room.bids[userId] = bidAmount;
 
           //TODO: check if all users bid, if true, setDJ
-          if (room.usersBid == (room.userCount - room.guestCount)) {
+          if (room.usersBid >= (room.userCount - room.guestCount)/2) {
             setDJ();
           }
         });
@@ -71,6 +71,7 @@ module.exports = function(app, rooms, rdio, host) {
         var room = rooms.get(roomName);
         
         socket.to(roomName).emit('unsetDJ');
+        socket.to(roomName).emit('resetBid');
 
         var topBidAmount = 0,
             topBidUser = '';
@@ -84,6 +85,10 @@ module.exports = function(app, rooms, rdio, host) {
 
         room.currentDJ = topBidUser;
         socket.emit('setDJ', topBidUser);
+
+        room.bidTotal = 0;
+        room.usersBid = 0;
+        room.bids = {};
 
       });
     };
