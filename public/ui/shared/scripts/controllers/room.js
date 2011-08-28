@@ -53,7 +53,6 @@ var RoomController = Fidel.ViewController.extend({
     $('#listener').hide();
     $('#selectedTrack').hide();
     $('#dj').show('block');
-    $('.noDJ').hide();
   },
   unsetDJ: function() {
     console.log('unsetting dj');
@@ -64,7 +63,6 @@ var RoomController = Fidel.ViewController.extend({
     $('#dj').hide();
     $('#nowPlaying').hide();
     $('.score').html(0);
-    $('.noDJ').show();
   },
   trackSelected: function(trackKey) {
     this.selectedTrack = trackKey;
@@ -93,6 +91,8 @@ var RoomController = Fidel.ViewController.extend({
       var html = str.template(tmp, { track: data });
       self.find("#nowPlaying").html(html);
       self.find("#nowPlaying").show('block');
+
+      if(self.isDJ) $('.noDJ').remove();
     });
   },
   placeBid: function(e) {
@@ -127,9 +127,11 @@ var RoomController = Fidel.ViewController.extend({
   voteUp: function(e) {
     e.preventDefault();
     this.socket.emit('vote', 1);
+    $('.noDJ').remove();
   },
   voteDown: function(e) {
     e.preventDefault();
     this.socket.emit('vote', -1);
+    $('.noDJ').remove();
   }
 });
