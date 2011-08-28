@@ -9,6 +9,8 @@ var RoomController = Fidel.ViewController.extend({
     this._playerReady = false;
     this.player = new Player(this.playbackToken);
     this.player.on('ready', this.proxy(this.onPlayerReady));
+    this.searchController = new SearchController ({ el: $('#search') });
+    this.searchController.on('select', this.proxy(this.trackSelected));
   },
   onPlayerReady: function() {
     this._playerReady = true;
@@ -40,7 +42,8 @@ var RoomController = Fidel.ViewController.extend({
 
     console.log("set as DJ");
     this.isDJ = true;
-    this.showDJ();
+    this.playTrack(this.selectedTrack);
+    //this.showDJ();
   },
   unsetDJ: function() {
     console.log('unsetting dj');
@@ -59,6 +62,16 @@ var RoomController = Fidel.ViewController.extend({
   },
   hideDJ: function() {
     
+  },
+  trackSelected: function(trackKey) {
+    this.selectedTrack = trackKey;
+    var self = this;
+    services.rdio.getTrackInfo(trackKey, function(data) {
+      console.log(data);
+      var tmp = $("#tmpSelectedTrack").html();
+      var html = str.template(tmp, { track: data });
+      self.selectedTrackNode.html(html);
+    });
   },
   playTrackAction: function(e) {
     var trackKey = e.target.getAttribute('data-trackkey');

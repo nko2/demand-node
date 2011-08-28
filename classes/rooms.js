@@ -4,9 +4,11 @@ var Rooms = function() {
 	this.get('Free For All');
 };
 Rooms.prototype.makeSlug = function(str) {
-	str = str.toLowerCase();
-	str = str.replace(/[^a-z0-9]+/g, '-');
-	str = str.replace(/^-|-$/g, '');
+	if (str) {
+		str = str.toLowerCase();
+		str = str.replace(/[^a-z0-9]+/g, '-');
+		str = str.replace(/^-|-$/g, '');
+	}
 	return str;
 };
 Rooms.prototype.create = function(roomName, slug) {

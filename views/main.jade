@@ -14,15 +14,16 @@ div#section
   div#rdioPlayer
   div#listener
     p To become the DJ, pick a song that you think is awesome-sause and then place a bid.  Once all bids have been made, the highest bidder becomes DJ.  If the song you pick plays all the way through, then you receive points.  If listeners vote it down, you lose points and you will step down as DJ.
+    div#search.Module
+      input(data-element='searchBox', type='text', placeholder="Search for a Song")
+      ul#results.UTL(data-element='resultsNode')
+    div(data-element='selectedTrackNode')
   div#dj
 
 div#aside
   div#bidder.Module
     include includes/bidder
 
-  div#search.Module
-    input(type='text', placeholder="Add a song to your playlist")
-    ul#results.UTL
 
   div#nowPlaying.Module
 
@@ -36,6 +37,8 @@ script#tmpDJ(type="text/template")
   include includes/dj
 script#tmpNowPlaying(type="text/template")
   include includes/nowplaying
+script#tmpSelectedTrack(type="text/template")
+  include includes/selectedtrack
 
 script
   window.playbackToken = "#{playbackToken}";
