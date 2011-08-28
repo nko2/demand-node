@@ -59,19 +59,6 @@ var RoomController = Fidel.ViewController.extend({
     $('#dj').hide();
     $('#nowPlaying').hide();
   },
-  showDJ: function() {
-    var self = this;
-    services.rdio.getTopCharts(function(data) { //TODO: tmp just to get something working
-      console.log(data);
-      var tmp = $("#tmpDJ").html();
-      var html = str.template(tmp, { tracks: data });
-      self.find("#dj").html(html);
-      self.delegateActions();
-    });
-  },
-  hideDJ: function() {
-    
-  },
   trackSelected: function(trackKey) {
     this.selectedTrack = trackKey;
     var self = this;
@@ -100,6 +87,7 @@ var RoomController = Fidel.ViewController.extend({
       self.find("#nowPlaying").html(html);
       self.find("#nowPlaying").show('block');
     });
+    this.resetBid();
   },
   placeBid: function(e) {
     e.preventDefault();
@@ -111,11 +99,13 @@ var RoomController = Fidel.ViewController.extend({
 
     bidInput.disabled = true;
     e.target.disabled = true;
+    this.find('button.bidSubmit').hide();
   },
   resetBid: function() {
     $('.bidAmount')[0].disabled = false;
     $('.bidSubmit')[0].disabled = false;
     $('.topBid').html('0');
+    this.find('button.bidSubmit').show();
   },
   updateBid: function(total) {
     $('.topBid').html(total);
