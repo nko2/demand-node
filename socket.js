@@ -2,6 +2,7 @@ module.exports = function(app, rdio, host) {
 
   var io = require('socket.io').listen(app);
   var chat = {};
+  var currentTracks = {};
 
   io.sockets.on('connection', function(socket) {
 
@@ -14,8 +15,9 @@ module.exports = function(app, rdio, host) {
       console.log("users in room "+roomName+": "+clients.length);
       if (clients.length == 1) { //make dj
         socket.emit('setDJ');
-      } else if (false) { //TODO: grab current track
-        socket.emit('djPlayedTrack', room.currentTrack);
+      } else { //TODO: grab current track
+        if (currentTracks[roomName])
+          socket.emit('djPlayedTrack', currentTracks[roomName]);
       }
       if (chat[roomName])
         socket.emit('loadChat', chat[roomName]);
@@ -23,10 +25,12 @@ module.exports = function(app, rdio, host) {
 
     });
 
-    socket.on('playTrack', function(roomName, trackKey) {
-      console.log("current track for room: "+trackKey);
-      socket.in(roomName).set('currentTrack', trackKey);
-      socket.broadcast.to(data.roomName).emit('djPlayedTrack', trackKey);
+    socket.on('playTrack', function(trackKey) {
+      socket.get('room', function(error, roomName) {
+        console.log("current track for room: "+trackKey);
+        currentTracks[roomName] = trackKey;
+        socket.broadcast.to(roomName).emit('djPlayedTrack', trackKey);
+      });
     });
 
     socket.on('sendMessage', function(name, message) {

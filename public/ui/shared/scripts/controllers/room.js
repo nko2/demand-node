@@ -1,6 +1,6 @@
 var RoomController = Fidel.ViewController.extend({
   events: {
-    playTrackAction: 'click ul li' //delegateActions won't work here - bug in fidel
+    playTrackAction: 'click ol li .play' //delegateActions won't work here - bug in fidel
   },
   init: function() {
     var self = this;
@@ -55,7 +55,7 @@ var RoomController = Fidel.ViewController.extend({
   playTrack: function(trackKey) {
     var self = this;
     if (this.isDJ)
-      this.socket.emit('playTrack', this.room, trackKey);
+      this.socket.emit('playTrack', trackKey);
     this.player.play(trackKey);
     services.rdio.getTrackInfo(trackKey, function(data) {
       console.log(data);

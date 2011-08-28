@@ -2,8 +2,8 @@
 //- p Pick a song:
 ol#playlist.Module.FLC
   {! for (var i = 0, c = tracks.length; i < c; i++) { var track = tracks[i]; !}
-  li(data-trackkey='{!= track.key !}')
-    span.play
+  li
+    span.play(data-trackkey='{!= track.key !}')
     span.title {!= track.artist !} - {!= track.name !}
     span.time {!= utils.formatTime(track.duration) !}
   {! } !}
