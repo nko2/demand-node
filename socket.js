@@ -19,6 +19,8 @@ module.exports = function(app, rooms, rdio, host) {
       var room = rooms.get(roomName);
       room.users[socket.id] = firstName;
       room.userCount++;
+      if (!userId)
+        room.guestCount++;
 
       if (room.currentTrack)
         socket.emit('djPlayedTrack', room.currentTrack);
@@ -56,7 +58,7 @@ module.exports = function(app, rooms, rdio, host) {
           room.bids[userId] = bidAmount;
 
           //TODO: check if all users bid, if true, setDJ
-          if (room.usersBid == room.userCount) {
+          if (room.usersBid == (room.userCount - room.guestCount)) {
             setDJ();
           }
         });
@@ -100,13 +102,17 @@ module.exports = function(app, rooms, rdio, host) {
     socket.on('disconnect', function() {
       console.log("disconnect");
       socket.get('room', function(err, roomName) {
-        if (roomName) {
-          console.log("user left room: "+roomName);
-          var room = rooms.get(roomName); 
-          delete room.users[socket.id];
-          room.userCount--;
-          socket.broadcast.to(roomName).emit('userLeave', socket.id);
-        }
+        socket.get('userId', function(err, userId) {
+          if (roomName) {
+            console.log("user left room: "+roomName);
+            var room = rooms.get(roomName); 
+            delete room.users[socket.id];
+            room.userCount--;
+            if (!userId)
+              room.guestCount--;
+            socket.broadcast.to(roomName).emit('userLeave', socket.id);
+          }
+        });
       });
     });
   });

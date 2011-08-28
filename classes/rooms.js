@@ -18,6 +18,7 @@ Rooms.prototype.create = function(roomName, slug) {
 		chatMessages: [],
 		users: {},
 		userCount: 0,
+		guestCount: 0,
 		currentTrack: '',
 		bidTotal: 0,
 		bids: {},
