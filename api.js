@@ -25,6 +25,21 @@ module.exports = function(app, rdio){
         res.contentType('application/json');
         res.send(JSON.parse(data));
       });
-
+  });
+  app.get('/api/rdio/search', function(req, res, params) {
+    var term = req.query.q;
+    rdio.api(
+      req.session.oauth_access_token,
+      req.session.oauth_access_token_secret,
+      {
+        method: 'search',
+        query: term,
+        types: 'track',
+        count: 10
+      }, function(err, data, response) {
+        res.contentType('application/json');
+        res.send(JSON.parse(data));
+      }
+    );
   });
 };
