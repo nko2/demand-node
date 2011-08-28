@@ -9,24 +9,25 @@ var RoomController = Fidel.ViewController.extend({
     this._playerReady = false;
     this.player = new Player(this.playbackToken);
     this.player.on('ready', this.proxy(this.onPlayerReady));
-    this.on('songEnded', function(e) {
-      self.socket.emit('songEnded', self.room, window.user_id);
-    });
   },
   onPlayerReady: function() {
     this._playerReady = true;
     this.initSocket();
   },
   initSocket: function() {
+    var self = this;
     this.socket = io.connect('http://'+document.location.hostname); //TODO
     this.chat = new ChatController({ el: this.find("#chat"), socket: this.socket });
     this.userList = new UserListController({ el: this.find("#userlist"), socket: this.socket });
     this.socket.on('setDJ', this.proxy(this.setDJ));
     this.socket.on('djPlayedTrack', this.proxy(this.djPlayedTrack));
-    this.socket.emit('join', this.room, window.firstName, window.user_id);
+    this.socket.emit('join', this.room, window.firstName, window.userId);
     this.socket.on('bidPlaced', this.proxy(this.updateBid));
     this.socket.on('resetBid', this.proxy(this.resetBid));
     this.socket.on('unsetDJ', this.proxy(this.unsetDJ));
+    this.on('songEnded', function(e) {
+      self.socket.emit('songEnded');
+    });
   },
   djPlayedTrack: function(trackKey) {
     if (!this.isDJ) {
@@ -34,8 +35,8 @@ var RoomController = Fidel.ViewController.extend({
       this.playTrack(trackKey);
     }
   },
-  setDJ: function(user_id) {
-    if(window.user_id != user_id) return false; //NOPE
+  setDJ: function(userId) {
+    if(window.userId != userId) return false; //NOPE
 
     console.log("set as DJ");
     this.isDJ = true;
@@ -82,7 +83,7 @@ var RoomController = Fidel.ViewController.extend({
         bidAmount = bidInput.value;
     if(bidAmount < 1) return; //NOPE.AVI
 
-    this.socket.emit('placeBid', this.room, window.user_id, bidAmount);
+    this.socket.emit('placeBid', bidAmount);
 
     bidInput.disabled = true;
     e.target.disabled = true;

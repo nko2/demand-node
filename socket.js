@@ -7,12 +7,12 @@ module.exports = function(app, rooms, rdio, host) {
   io.sockets.on('connection', function(socket) {
 
 
-    socket.on('join', function(roomName, firstName, user_id) {
+    socket.on('join', function(roomName, firstName, userId) {
       console.log("user joined room: "+roomName);
       socket.join(roomName);
       socket.set('room', roomName);
       socket.set('name', firstName);
-      socket.set('user_id', user_id);
+      socket.set('userId', userId);
       var clients = io.sockets.clients(roomName);
       console.log("users in room "+roomName+": "+clients.length);
 
@@ -20,15 +20,11 @@ module.exports = function(app, rooms, rdio, host) {
       room.users[socket.id] = firstName;
       room.userCount++;
 
-      if (clients.length == 1) { //make dj
-        room.currentDJ = user_id;
-        socket.emit('setDJ', user_id);
-      } else { 
-        if (room.currentTrack)
-          socket.emit('djPlayedTrack', room.currentTrack);
-        socket.broadcast.to(roomName).emit('userJoin', socket.id, firstName);
-        socket.emit('loadUsers', room.users);
-      }
+      if (room.currentTrack)
+        socket.emit('djPlayedTrack', room.currentTrack);
+      socket.broadcast.to(roomName).emit('userJoin', socket.id, firstName);
+      socket.emit('loadUsers', room.users);
+
       if (room.chatMessages)
         socket.emit('loadChat', room.chatMessages);
 
@@ -43,23 +39,28 @@ module.exports = function(app, rooms, rdio, host) {
       });
     });
 
-    socket.on('placeBid', function(roomName, user_id, bidAmount) {
+    socket.on('placeBid', function(bidAmount) {
       socket.get('room', function(error, roomName) {
-        var room = rooms.get(roomName);
+        socket.get('userId', function(error, userId) {
 
-        if(user_id in room.bids) return false; //double bidding D:
+          var room = rooms.get(roomName);
 
-        room.bidTotal = parseInt(room.bidTotal)+parseInt(bidAmount);
+          if(userId in room.bids) return false; //double bidding D:
 
-        console.log("current bid total for room: "+room.bidTotal);
-        socket.to(roomName).emit('bidPlaced', room.bidTotal);
+          room.bidTotal = parseInt(room.bidTotal)+parseInt(bidAmount);
 
-        room.bids[user_id] = bidAmount;
+          console.log("current bid total for room: "+room.bidTotal);
+          socket.to(roomName).emit('bidPlaced', room.bidTotal);
+
+          room.bids[userId] = bidAmount;
+
+          //TODO: check if all users bid, if true, setDJ
+        });
 
       });
     });
 
-    socket.on('songEnded', function(roomName, user_id) {
+    var setDJ = function() {
       socket.get('room', function(error, roomName) {
         var room = rooms.get(roomName);
         
@@ -79,6 +80,10 @@ module.exports = function(app, rooms, rdio, host) {
         socket.emit('setDJ', topBidUser);
 
       });
+    };
+
+    socket.on('songEnded', function() {
+      setDJ();
     });
 
     socket.on('sendMessage', function(name, message) {

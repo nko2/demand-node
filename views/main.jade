@@ -12,6 +12,8 @@
 
 div#section
   div#rdioPlayer
+  div#listener
+    p To become the DJ, pick a song that you think is awesome-sause and then place a bid.  Once all bids have been made, the highest bidder becomes DJ.  If the song you pick plays all the way through, then you receive points.  If listeners vote it down, you lose points and you will step down as DJ.
   div#dj
 
 div#aside
@@ -38,6 +40,6 @@ script#tmpNowPlaying(type="text/template")
 script
   window.playbackToken = "#{playbackToken}";
   window.firstName = "#{user.firstName}";
-  window.user_id = "#{user.key}";
+  window.userId = "#{user.key}";
   window.roomName = "#{room.name}";
   window.roomSlug = "#{room.slug}";

@@ -19,6 +19,7 @@ Rooms.prototype.create = function(roomName, slug) {
 		currentTrack: '',
 		bidTotal: 0,
 		bids: {},
+		usersBid: 0,
 		currentDJ: ''
 	};
 };
